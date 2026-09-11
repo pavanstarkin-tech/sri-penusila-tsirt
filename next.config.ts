@@ -1,14 +1,15 @@
 import type { NextConfig } from "next";
 
-const isGitHubPages = process.env.GITHUB_PAGES === "true";
+const isProd = process.env.NODE_ENV === "production" || process.env.GITHUB_PAGES === "true";
 const repoName = "sri-penusila-tsirt";
+const basePath = isProd ? `/${repoName}` : "";
 
 const nextConfig: NextConfig = {
   output: "export",
-  basePath: isGitHubPages ? `/${repoName}` : "",
-  assetPrefix: isGitHubPages ? `/${repoName}/` : undefined,
+  basePath: basePath,
+  assetPrefix: basePath ? `${basePath}/` : undefined,
   env: {
-    NEXT_PUBLIC_BASE_PATH: isGitHubPages ? `/${repoName}` : "",
+    NEXT_PUBLIC_BASE_PATH: basePath,
   },
   images: {
     unoptimized: true,
@@ -17,3 +18,4 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+

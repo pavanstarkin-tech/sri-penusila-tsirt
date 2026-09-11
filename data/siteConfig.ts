@@ -95,8 +95,11 @@ export function getTelLink(phone = "8985065578") {
 
 export function getAssetPath(url: string) {
   if (!url) return "";
-  if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:")) return url;
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:") || url.startsWith("blob:")) return url;
+  let basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  if (!basePath && typeof window !== "undefined" && window.location.pathname.startsWith("/sri-penusila-tsirt")) {
+    basePath = "/sri-penusila-tsirt";
+  }
   const cleanUrl = url.startsWith("/") ? url : `/${url}`;
   if (basePath && cleanUrl.startsWith(basePath)) return cleanUrl;
   return `${basePath}${cleanUrl}`;
