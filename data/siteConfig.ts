@@ -92,3 +92,12 @@ export function getWhatsAppLink(phone = "8985065578", message = "Hi Sri Penusila
 export function getTelLink(phone = "8985065578") {
   return `tel:+91${phone.replace(/[^0-9]/g, "")}`;
 }
+
+export function getAssetPath(url: string) {
+  if (!url) return "";
+  if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:")) return url;
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const cleanUrl = url.startsWith("/") ? url : `/${url}`;
+  if (basePath && cleanUrl.startsWith(basePath)) return cleanUrl;
+  return `${basePath}${cleanUrl}`;
+}
