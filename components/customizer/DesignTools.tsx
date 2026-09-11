@@ -25,6 +25,7 @@ import {
   AlignRight,
   AlertCircle
 } from "lucide-react";
+import { getAssetPath } from "@/data/siteConfig";
 
 interface DesignToolsProps {
   activeSide: GarmentSide;
@@ -38,6 +39,7 @@ interface DesignToolsProps {
   onDeleteLayer: (id: string) => void;
   onDuplicateLayer: (id: string) => void;
   onReorderLayer: (id: string, direction: "up" | "down") => void;
+  initialTab?: "upload" | "text" | "graphics" | "layers";
   className?: string;
 }
 
@@ -53,9 +55,16 @@ export default function DesignTools({
   onDeleteLayer,
   onDuplicateLayer,
   onReorderLayer,
+  initialTab = "upload",
   className = ""
 }: DesignToolsProps) {
-  const [activeTab, setActiveTab] = useState<"upload" | "text" | "graphics" | "layers">("upload");
+  const [activeTab, setActiveTab] = useState<"upload" | "text" | "graphics" | "layers">(initialTab);
+
+  // Sync with initialTab if it changes from parent
+  React.useEffect(() => {
+    if (initialTab) setActiveTab(initialTab);
+  }, [initialTab]);
+
   const [uploadError, setUploadError] = useState<string | null>(null);
 
   // New text state
@@ -442,7 +451,7 @@ export default function DesignTools({
                 >
                   <div className="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden relative shrink-0">
                     <img
-                      src={graphic.previewUrl}
+                      src={getAssetPath(graphic.previewUrl)}
                       alt={graphic.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform"
                     />

@@ -312,15 +312,15 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
   return (
     <div className="space-y-6">
       {/* ============================================================ */}
-      {/* 4-STEP PROGRESS HEADER                                       */}
+      {/* 4-STEP PROGRESS HEADER (Tap to open corresponding sheet)      */}
       {/* ============================================================ */}
-      <div className="bg-white rounded-2xl border border-[#E7E7E7] p-4 shadow-xs">
-        <div className="grid grid-cols-4 gap-2 sm:gap-4">
+      <div className="bg-white rounded-2xl border border-[#E7E7E7] p-2.5 sm:p-4 shadow-xs">
+        <div className="grid grid-cols-4 gap-1.5 sm:gap-4">
           {[
-            { num: 1, label: "Choose Style", sub: activeStyle.name },
-            { num: 2, label: "Size & Color", sub: `${activeColor.name} • ${selectedSize}` },
-            { num: 3, label: "Add Artwork", sub: `${frontCustomization.layers.length + backCustomization.layers.length} Layers` },
-            { num: 4, label: "Get Quotation", sub: `₹${estimatedTotalPrice}` }
+            { num: 1, label: "Style", fullLabel: "Choose Style", sub: activeStyle.name, sheet: "style" as const },
+            { num: 2, label: "Specs", fullLabel: "Size & Color", sub: `${activeColor.name} • ${selectedSize}`, sheet: "color" as const },
+            { num: 3, label: "Artwork", fullLabel: "Add Artwork", sub: `${frontCustomization.layers.length + backCustomization.layers.length} Layers`, sheet: "upload" as const },
+            { num: 4, label: "Quote", fullLabel: "Get Quotation", sub: `₹${estimatedTotalPrice}`, sheet: null }
           ].map((step) => {
             const isActive = currentStep === step.num;
             const isCompleted = currentStep > step.num;
@@ -329,7 +329,14 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
               <button
                 key={step.num}
                 type="button"
-                onClick={() => setCurrentStep(step.num as any)}
+                onClick={() => {
+                  setCurrentStep(step.num as any);
+                  if (step.sheet) {
+                    setMobileSheet(step.sheet);
+                  } else if (step.num === 4) {
+                    handleGenerateQuotation();
+                  }
+                }}
                 className={`text-left p-2 sm:p-2.5 rounded-xl border transition-all ${
                   isActive
                     ? "bg-red-50/60 border-[#E11D2E] ring-1 ring-[#E11D2E]/20"
@@ -355,7 +362,8 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
                       isActive ? "text-[#E11D2E]" : "text-[#0B0B0B]"
                     }`}
                   >
-                    {step.label}
+                    <span className="sm:hidden">{step.label}</span>
+                    <span className="hidden sm:inline">{step.fullLabel}</span>
                   </span>
                 </div>
                 <div className="hidden sm:block text-[10px] text-gray-500 font-mono mt-1 truncate pl-7">
@@ -442,9 +450,9 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
         {/* CENTER COLUMN: LIVE INTERACTIVE T-SHIRT CANVAS (Col 5)       */}
         {/* ============================================================ */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-[#121212] rounded-3xl border border-[#262626] p-4 sm:p-6 relative shadow-xl overflow-hidden">
+          <div className="bg-[#121212] rounded-3xl border border-[#262626] p-3.5 sm:p-6 relative shadow-xl overflow-hidden">
             {/* Top Canvas Bar: Front/Back Segmented Control + Preview Mode */}
-            <div className="flex items-center justify-between gap-2 pb-4 border-b border-[#262626]">
+            <div className="flex items-center justify-between gap-2 pb-3.5 border-b border-[#262626]">
               {/* Segmented Control [ FRONT ] [ BACK ] */}
               <div className="flex items-center bg-[#1F1F1F] p-1 rounded-xl border border-[#333333]">
                 <button
@@ -453,7 +461,7 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
                     setActiveSide("front");
                     setSelectedLayerId(null);
                   }}
-                  className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  className={`flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
                     activeSide === "front"
                       ? "bg-[#E11D2E] text-white shadow-md"
                       : "text-gray-400 hover:text-white"
@@ -471,7 +479,7 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
                     setActiveSide("back");
                     setSelectedLayerId(null);
                   }}
-                  className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  className={`flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
                     activeSide === "back"
                       ? "bg-[#E11D2E] text-white shadow-md"
                       : "text-gray-400 hover:text-white"
@@ -485,18 +493,18 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
               </div>
 
               {/* Preview Toggle & Clear Side */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2">
                 <button
                   type="button"
                   onClick={() => setIsPreviewMode(!isPreviewMode)}
-                  className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+                  className={`flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
                     isPreviewMode
                       ? "bg-white text-black border-white"
                       : "bg-[#1F1F1F] text-gray-300 border-[#333333] hover:border-gray-500"
                   }`}
                 >
                   {isPreviewMode ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                  <span>{isPreviewMode ? "Edit Mode" : "Preview"}</span>
+                  <span>{isPreviewMode ? "Edit" : "Preview"}</span>
                 </button>
 
                 {activeLayers.length > 0 && !isPreviewMode && (
@@ -513,7 +521,7 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
             </div>
 
             {/* MAIN STAGE: The T-Shirt Mockup + Printable Region */}
-            <div className="relative w-full aspect-square max-w-[460px] mx-auto flex items-center justify-center my-2">
+            <div className="relative w-full aspect-square max-w-[340px] sm:max-w-[440px] mx-auto flex items-center justify-center my-2">
               {/* Base SVG Mockup with Shading & Folds */}
               <TshirtMockupSvg
                 styleId={selectedStyleId}
@@ -542,7 +550,7 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
 
             {/* Bottom Surface Switcher Thumbnails */}
             <div className="pt-3 border-t border-[#262626] flex items-center justify-between">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                 {/* FRONT THUMBNAIL */}
                 <button
                   type="button"
@@ -550,13 +558,13 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
                     setActiveSide("front");
                     setSelectedLayerId(null);
                   }}
-                  className={`flex items-center gap-2 p-1.5 rounded-xl border transition-all ${
+                  className={`flex items-center gap-1.5 sm:gap-2 p-1.5 rounded-xl border transition-all ${
                     activeSide === "front"
                       ? "border-[#E11D2E] bg-red-950/20"
                       : "border-[#262626] bg-[#171717] hover:border-gray-500"
                   }`}
                 >
-                  <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-black/40 p-0.5">
+                  <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-lg overflow-hidden bg-black/40 p-0.5">
                     <TshirtMockupSvg
                       styleId={selectedStyleId}
                       side="front"
@@ -567,7 +575,7 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
                       <span className="absolute bottom-0.5 right-0.5 w-2 h-2 rounded-full bg-[#E11D2E]" />
                     )}
                   </div>
-                  <div className="text-left text-[11px] pr-2">
+                  <div className="text-left text-[10px] sm:text-[11px] pr-1.5">
                     <div className="font-bold text-white leading-tight">Front</div>
                     <div className="text-[9px] text-gray-400">
                       {frontCustomization.layers.length} items
@@ -582,13 +590,13 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
                     setActiveSide("back");
                     setSelectedLayerId(null);
                   }}
-                  className={`flex items-center gap-2 p-1.5 rounded-xl border transition-all ${
+                  className={`flex items-center gap-1.5 sm:gap-2 p-1.5 rounded-xl border transition-all ${
                     activeSide === "back"
                       ? "border-[#E11D2E] bg-red-950/20"
                       : "border-[#262626] bg-[#171717] hover:border-gray-500"
                   }`}
                 >
-                  <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-black/40 p-0.5">
+                  <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-lg overflow-hidden bg-black/40 p-0.5">
                     <TshirtMockupSvg
                       styleId={selectedStyleId}
                       side="back"
@@ -599,7 +607,7 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
                       <span className="absolute bottom-0.5 right-0.5 w-2 h-2 rounded-full bg-[#E11D2E]" />
                     )}
                   </div>
-                  <div className="text-left text-[11px] pr-2">
+                  <div className="text-left text-[10px] sm:text-[11px] pr-1.5">
                     <div className="font-bold text-white leading-tight">Back</div>
                     <div className="text-[9px] text-gray-400">
                       {backCustomization.layers.length} items
@@ -609,36 +617,53 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
               </div>
 
               {/* Status Hint */}
-              <div className="text-[10px] text-gray-400 font-mono hidden sm:block">
-                Drag layer to position
+              <div className="text-[10px] text-gray-400 font-mono">
+                {activeSide.toUpperCase()} Canvas
               </div>
             </div>
           </div>
 
-          {/* Mobile-Only Toolbar (Opens Bottom Sheets) */}
-          <div className="lg:hidden grid grid-cols-4 gap-2">
+          {/* ============================================================ */}
+          {/* MOBILE 6-TOOL GRID (Fast access to all customizer features)  */}
+          {/* ============================================================ */}
+          <div className="lg:hidden grid grid-cols-3 sm:grid-cols-6 gap-2 pt-1">
             <button
               type="button"
-              onClick={() => setMobileSheet("style")}
-              className="p-2.5 bg-white border border-gray-200 rounded-xl flex flex-col items-center gap-1 text-xs font-bold text-gray-800 shadow-xs active:bg-gray-50"
+              onClick={() => {
+                setCurrentStep(1);
+                setMobileSheet("style");
+              }}
+              className="p-2.5 bg-white border border-gray-200 rounded-xl flex flex-col items-center gap-1 text-xs font-bold text-gray-800 shadow-xs active:bg-gray-50 hover:border-[#E11D2E] transition-all"
             >
               <Shirt className="w-4 h-4 text-[#E11D2E]" />
-              <span className="text-[10px]">Style</span>
+              <span className="text-[10px] truncate max-w-full">Style ({activeStyle.name.split(" ")[0]})</span>
             </button>
 
             <button
               type="button"
-              onClick={() => setMobileSheet("color")}
-              className="p-2.5 bg-white border border-gray-200 rounded-xl flex flex-col items-center gap-1 text-xs font-bold text-gray-800 shadow-xs active:bg-gray-50"
+              onClick={() => {
+                setCurrentStep(2);
+                setMobileSheet("color");
+              }}
+              className="p-2.5 bg-white border border-gray-200 rounded-xl flex flex-col items-center gap-1 text-xs font-bold text-gray-800 shadow-xs active:bg-gray-50 hover:border-[#E11D2E] transition-all"
             >
-              <Palette className="w-4 h-4 text-[#E11D2E]" />
-              <span className="text-[10px]">Color/Size</span>
+              <div className="flex items-center gap-1">
+                <span
+                  className="w-3.5 h-3.5 rounded-full border border-gray-300"
+                  style={{ backgroundColor: activeColor.hex }}
+                />
+                <span className="text-[10px]">{selectedSize}</span>
+              </div>
+              <span className="text-[10px] truncate max-w-full">Color & Size</span>
             </button>
 
             <button
               type="button"
-              onClick={() => setMobileSheet("upload")}
-              className="p-2.5 bg-white border border-gray-200 rounded-xl flex flex-col items-center gap-1 text-xs font-bold text-gray-800 shadow-xs active:bg-gray-50"
+              onClick={() => {
+                setCurrentStep(3);
+                setMobileSheet("upload");
+              }}
+              className="p-2.5 bg-white border border-gray-200 rounded-xl flex flex-col items-center gap-1 text-xs font-bold text-gray-800 shadow-xs active:bg-gray-50 hover:border-[#E11D2E] transition-all"
             >
               <Upload className="w-4 h-4 text-[#E11D2E]" />
               <span className="text-[10px]">Upload</span>
@@ -646,31 +671,84 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
 
             <button
               type="button"
-              onClick={() => setMobileSheet("text")}
-              className="p-2.5 bg-white border border-gray-200 rounded-xl flex flex-col items-center gap-1 text-xs font-bold text-gray-800 shadow-xs active:bg-gray-50"
+              onClick={() => {
+                setCurrentStep(3);
+                setMobileSheet("text");
+              }}
+              className="p-2.5 bg-white border border-gray-200 rounded-xl flex flex-col items-center gap-1 text-xs font-bold text-gray-800 shadow-xs active:bg-gray-50 hover:border-[#E11D2E] transition-all"
             >
               <Type className="w-4 h-4 text-[#E11D2E]" />
-              <span className="text-[10px]">Text</span>
+              <span className="text-[10px]">Add Text</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setCurrentStep(3);
+                setMobileSheet("graphics");
+              }}
+              className="p-2.5 bg-white border border-gray-200 rounded-xl flex flex-col items-center gap-1 text-xs font-bold text-gray-800 shadow-xs active:bg-gray-50 hover:border-[#E11D2E] transition-all"
+            >
+              <Sparkles className="w-4 h-4 text-[#E11D2E]" />
+              <span className="text-[10px]">Graphics</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setCurrentStep(3);
+                setMobileSheet("layers");
+              }}
+              className="p-2.5 bg-white border border-gray-200 rounded-xl flex flex-col items-center gap-1 text-xs font-bold text-gray-800 shadow-xs active:bg-gray-50 hover:border-[#E11D2E] transition-all relative"
+            >
+              <div className="relative">
+                <Layers className="w-4 h-4 text-[#E11D2E]" />
+                {activeLayers.length > 0 && (
+                  <span className="absolute -top-1 -right-2.5 bg-[#E11D2E] text-white text-[8px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center">
+                    {activeLayers.length}
+                  </span>
+                )}
+              </div>
+              <span className="text-[10px]">Layers</span>
             </button>
           </div>
 
-          {/* Mobile Bottom Floating Action */}
-          <div className="lg:hidden flex items-center gap-3 pt-2">
-            <button
-              type="button"
-              onClick={handleGenerateQuotation}
-              className="flex-1 py-3 bg-[#E11D2E] text-white font-poppins font-bold text-xs rounded-xl shadow-md flex items-center justify-center gap-1.5"
-            >
-              <FileText className="w-4 h-4" />
-              <span>Get Quotation (₹{estimatedTotalPrice})</span>
-            </button>
+          {/* ============================================================ */}
+          {/* MOBILE DOCKED ACTIONS BAR (Sticky / Floating)                 */}
+          {/* ============================================================ */}
+          <div className="lg:hidden bg-[#0B0B0B] text-white rounded-2xl border border-[#262626] p-3.5 shadow-xl space-y-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-[10px] text-gray-400 font-mono block uppercase">
+                  {activeStyle.name} • {activeColor.name} ({selectedSize})
+                </span>
+                <div className="flex items-center gap-1.5">
+                  <span className="font-poppins font-black text-lg text-[#FF4D5A]">
+                    ₹{estimatedTotalPrice}
+                  </span>
+                  <span className="text-[10px] text-gray-400">
+                    (₹{singleUnitPrice} × {quantity} pcs)
+                  </span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleAddToCart}
+                className="py-2 px-3 bg-white/10 hover:bg-white/20 text-white font-poppins font-semibold text-xs rounded-xl border border-white/15 flex items-center gap-1.5 transition-colors"
+              >
+                <ShoppingBag className="w-3.5 h-3.5 text-[#FF4D5A]" />
+                <span>Add to Bag</span>
+              </button>
+            </div>
 
             <button
               type="button"
-              onClick={() => setIsPreviewMode(!isPreviewMode)}
-              className="py-3 px-4 bg-[#0B0B0B] text-white font-poppins font-semibold text-xs rounded-xl border border-gray-700"
+              onClick={handleGenerateQuotation}
+              className="w-full py-3 bg-[#E11D2E] hover:bg-[#C51322] text-white font-poppins font-bold text-xs rounded-xl shadow-lg flex items-center justify-center gap-2 transition-transform active:scale-95"
             >
-              {isPreviewMode ? "Edit" : "Preview"}
+              <FileText className="w-4 h-4" />
+              <span>Get WhatsApp Quotation Proof (₹{estimatedTotalPrice}) →</span>
             </button>
           </div>
         </div>
@@ -751,14 +829,36 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
 
       {/* 3. Upload & Design Tools Sheet */}
       <MobileToolSheet
-        isOpen={mobileSheet === "upload" || mobileSheet === "text"}
+        isOpen={
+          mobileSheet === "upload" ||
+          mobileSheet === "text" ||
+          mobileSheet === "graphics" ||
+          mobileSheet === "layers"
+        }
         onClose={() => setMobileSheet(null)}
-        title={`Add Artwork to ${activeSide.toUpperCase()}`}
+        title={`${
+          mobileSheet === "layers"
+            ? "Manage Layers"
+            : mobileSheet === "text"
+            ? "Add Custom Text"
+            : mobileSheet === "graphics"
+            ? "Preset Graphics"
+            : "Upload Artwork"
+        } (${activeSide.toUpperCase()})`}
       >
         <DesignTools
           activeSide={activeSide}
           layers={activeLayers}
           selectedLayerId={selectedLayerId}
+          initialTab={
+            mobileSheet === "text"
+              ? "text"
+              : mobileSheet === "graphics"
+              ? "graphics"
+              : mobileSheet === "layers"
+              ? "layers"
+              : "upload"
+          }
           onSelectLayer={setSelectedLayerId}
           onAddImageLayer={(l) => {
             handleAddImageLayer(l);

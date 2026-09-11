@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { X } from "lucide-react";
 
 interface MobileToolSheetProps {
@@ -16,15 +16,27 @@ export default function MobileToolSheet({
   title,
   children
 }: MobileToolSheetProps) {
+  // Lock body scroll when sheet is open on mobile
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="md:hidden fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-xs transition-opacity animate-in fade-in duration-200">
+    <div className="lg:hidden fixed inset-0 z-[70] flex items-end justify-center bg-black/70 backdrop-blur-xs transition-opacity animate-in fade-in duration-200">
       {/* Backdrop tap to close */}
       <div className="absolute inset-0" onClick={onClose} />
 
       {/* Sheet Content */}
-      <div className="relative w-full max-h-[85vh] bg-white rounded-t-[28px] border-t border-gray-200 shadow-2xl flex flex-col z-10 overflow-hidden animate-in slide-in-from-bottom duration-300">
+      <div className="relative w-full max-h-[88vh] bg-white rounded-t-[28px] border-t border-gray-200 shadow-2xl flex flex-col z-10 overflow-hidden animate-in slide-in-from-bottom duration-300">
         {/* Drag Handle Bar */}
         <div className="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mt-3 mb-1" />
 
@@ -44,7 +56,7 @@ export default function MobileToolSheet({
         </div>
 
         {/* Scrollable Body */}
-        <div className="p-5 overflow-y-auto max-h-[70vh] pb-8">
+        <div className="p-4 sm:p-5 overflow-y-auto max-h-[72vh] pb-8 overscroll-contain">
           {children}
         </div>
       </div>

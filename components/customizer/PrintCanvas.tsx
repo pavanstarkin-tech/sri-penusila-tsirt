@@ -20,6 +20,7 @@ import {
   ZoomOut,
   Sparkles
 } from "lucide-react";
+import { siteConfig, getAssetPath } from "@/data/siteConfig";
 
 interface PrintCanvasProps {
   styleId: TshirtStyleId;
@@ -193,7 +194,7 @@ export default function PrintCanvas({
                 }}
               >
                 <img
-                  src={layer.src}
+                  src={getAssetPath(layer.src)}
                   alt="Custom Print Artwork"
                   className="w-full h-full object-contain pointer-events-none drop-shadow-sm"
                   draggable={false}
@@ -227,7 +228,7 @@ export default function PrintCanvas({
                   </svg>
                 ) : (
                   <img
-                    src={layer.src || ""}
+                    src={getAssetPath(layer.src || "")}
                     alt={layer.title}
                     className="w-full h-full object-contain pointer-events-none"
                   />
