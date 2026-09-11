@@ -26,7 +26,7 @@ import FilterSidebar from "@/components/FilterSidebar";
 import ProductCard from "@/components/ProductCard";
 import { products } from "@/data/products";
 import { designsCategoryTabs } from "@/data/categories";
-import { siteConfig, getWhatsAppLink } from "@/data/siteConfig";
+import { siteConfig, getWhatsAppLink, getAssetPath } from "@/data/siteConfig";
 
 const categoryIcons: Record<string, React.ReactNode> = {
   all: <LayoutGrid className="w-4 h-4" />,
@@ -157,7 +157,7 @@ function DesignsContent() {
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative w-full max-w-[480px] aspect-[16/10] flex items-center justify-center rounded-2xl overflow-hidden shadow-2xl border border-[#262626] group">
               <Image
-                src="/assets/1.png"
+                src={getAssetPath("/assets/1.png")}
                 alt="Trending Designs Visual"
                 fill
                 sizes="480px"

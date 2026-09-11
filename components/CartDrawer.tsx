@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { X, Plus, Minus, Trash2, ShoppingBag, MessageCircle, ArrowRight } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { getAssetPath } from "@/data/siteConfig";
 
 export default function CartDrawer() {
   const {
@@ -73,7 +74,7 @@ export default function CartDrawer() {
                   {/* Item Image */}
                   <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-gray-50 border border-gray-200 shrink-0">
                     <Image
-                      src={item.image}
+                      src={getAssetPath(item.image)}
                       alt={item.name}
                       fill
                       sizes="80px"

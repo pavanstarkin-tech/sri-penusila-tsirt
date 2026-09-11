@@ -19,6 +19,7 @@ import FilterSidebar from "@/components/FilterSidebar";
 import ProductCard from "@/components/ProductCard";
 import { products } from "@/data/products";
 import { storeSidebarCategories } from "@/data/categories";
+import { getAssetPath } from "@/data/siteConfig";
 
 function StoreContent() {
   const searchParams = useSearchParams();
@@ -126,7 +127,7 @@ function StoreContent() {
 
           <div className="relative w-full max-w-[440px] aspect-[16/9] rounded-2xl overflow-hidden border border-[#262626] bg-white shadow-xl group">
             <Image
-              src="/assets/3.png"
+              src={getAssetPath("/assets/3.png")}
               alt="Sri Penusila Store Collection"
               fill
               sizes="440px"

@@ -15,7 +15,7 @@ import {
   ArrowUpRight,
   ArrowRight
 } from "lucide-react";
-import { siteConfig, getWhatsAppLink, getTelLink } from "@/data/siteConfig";
+import { siteConfig, getWhatsAppLink, getTelLink, getAssetPath } from "@/data/siteConfig";
 import { useCart } from "@/context/CartContext";
 
 const navLinks = [
@@ -89,7 +89,7 @@ export default function Header() {
             <Link href="/" className="flex items-center gap-2.5 group">
               <div className="relative w-10 h-10 sm:w-11 sm:h-11 shrink-0 rounded-full overflow-hidden border border-amber-300/40 shadow-xs">
                 <Image
-                  src="/logo/logo-emblem.png"
+                  src={getAssetPath("/logo/logo-emblem.png")}
                   alt="Sri Penusila Logo"
                   fill
                   sizes="44px"
@@ -230,7 +230,7 @@ export default function Header() {
               <div className="flex items-center gap-2.5">
                 <div className="relative w-9 h-9 rounded-full overflow-hidden border border-amber-300/40">
                   <Image
-                    src="/logo/logo-emblem.png"
+                    src={getAssetPath("/logo/logo-emblem.png")}
                     alt="Sri Penusila Logo"
                     fill
                     sizes="36px"

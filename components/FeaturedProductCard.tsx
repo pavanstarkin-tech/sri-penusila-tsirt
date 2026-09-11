@@ -9,6 +9,8 @@ import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import confetti from "canvas-confetti";
 
+import { getAssetPath } from "@/data/siteConfig";
+
 interface FeaturedProductCardProps {
   product: Product;
 }
@@ -61,17 +63,17 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
           </span>
         </div>
 
-        {/* Favorite Heart Button */}
+        {/* Favorite Action Button */}
         <button
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
             toggleFavorite(product.id);
           }}
-          className={`absolute top-3.5 right-3.5 z-10 w-9 h-9 rounded-full bg-white/90 backdrop-blur-xs border flex items-center justify-center shadow-xs transition-all active:scale-125 ${
+          className={`absolute top-3.5 right-3.5 z-10 w-9 h-9 rounded-full bg-white/95 backdrop-blur-xs border flex items-center justify-center shadow-xs transition-all active:scale-125 min-w-[36px] min-h-[36px] ${
             isFav
-              ? "text-[#E11D2E] border-red-200 bg-red-50"
-              : "text-gray-400 border-gray-200 hover:text-[#E11D2E]"
+              ? "text-[#E11D2E] border-red-200 bg-red-50/70"
+              : "text-gray-400 border-gray-200 hover:text-[#E11D2E] hover:border-red-200"
           }`}
           aria-label={isFav ? "Remove from wishlist" : "Add to wishlist"}
         >
@@ -83,7 +85,7 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
         {/* Product Visual */}
         <div className="relative w-full h-full transition-transform duration-300 group-hover:scale-[1.04]">
           <Image
-            src={product.image}
+            src={getAssetPath(product.image)}
             alt={product.name}
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"

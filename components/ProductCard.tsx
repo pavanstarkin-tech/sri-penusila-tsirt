@@ -9,6 +9,8 @@ import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import confetti from "canvas-confetti";
 
+import { getAssetPath } from "@/data/siteConfig";
+
 interface ProductCardProps {
   product: Product;
   className?: string;
@@ -76,7 +78,7 @@ export default function ProductCard({ product, className = "" }: ProductCardProp
         {/* Product Image with smooth 1.03 hover scale */}
         <div className="relative w-full h-full transition-transform duration-300 group-hover:scale-[1.03]">
           <Image
-            src={product.image}
+            src={getAssetPath(product.image)}
             alt={product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"

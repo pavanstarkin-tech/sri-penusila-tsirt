@@ -12,7 +12,7 @@ import {
   Minus
 } from "lucide-react";
 import { InstagramIcon, FacebookIcon, YoutubeIcon, WhatsappIcon } from "@/components/SocialIcons";
-import { siteConfig, getWhatsAppLink, getTelLink } from "@/data/siteConfig";
+import { siteConfig, getWhatsAppLink, getTelLink, getAssetPath } from "@/data/siteConfig";
 
 export default function Footer() {
   const [mobileSection, setMobileSection] = useState<string | null>(null);
@@ -31,7 +31,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center gap-3 group">
               <div className="relative w-11 h-11 rounded-full overflow-hidden border border-amber-300/40">
                 <Image
-                  src="/logo/logo-emblem.png"
+                  src={getAssetPath("/logo/logo-emblem.png")}
                   alt="Sri Penusila Logo"
                   fill
                   sizes="44px"
@@ -215,7 +215,7 @@ export default function Footer() {
             <Link href="/" className="inline-flex items-center gap-2.5">
               <div className="relative w-9 h-9 rounded-full overflow-hidden border border-amber-300/40">
                 <Image
-                  src="/logo/logo-emblem.png"
+                  src={getAssetPath("/logo/logo-emblem.png")}
                   alt="Sri Penusila Logo"
                   fill
                   sizes="36px"

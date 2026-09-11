@@ -25,7 +25,7 @@ import {
 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import CTASection from "@/components/CTASection";
-import { siteConfig } from "@/data/siteConfig";
+import { siteConfig, getAssetPath } from "@/data/siteConfig";
 
 export default function AboutPage() {
   const [videoPlaying, setVideoPlaying] = useState(false);
@@ -56,7 +56,7 @@ export default function AboutPage() {
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative w-full max-w-[440px] aspect-[16/11] rounded-[24px] overflow-hidden border border-[#262626] bg-white shadow-2xl group">
               <Image
-                src="/assets/5.png"
+                src={getAssetPath("/assets/5.png")}
                 alt="Sri Penusila Heritage Embroidered Tag"
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
@@ -108,7 +108,7 @@ export default function AboutPage() {
           {/* Center Video Card */}
           <div className="lg:col-span-5 relative card-feature overflow-hidden border border-[#E7E7E7] bg-black min-h-[280px] group shadow-sm">
             <Image
-              src="/about/video-story-thumb.png"
+              src={getAssetPath("/about/video-story-thumb.png")}
               alt="Watch Our Story Video Thumbnail"
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
@@ -332,7 +332,7 @@ export default function AboutPage() {
           <div className="lg:col-span-5 flex justify-center">
             <div className="relative w-full max-w-[400px] aspect-[4/3] card-product overflow-hidden border border-[#E7E7E7] bg-[#F7F7F7] shadow-md group">
               <Image
-                src="/about/why-choose-tshirts.png"
+                src={getAssetPath("/about/why-choose-tshirts.png")}
                 alt="Sri Penusila Printed T-Shirts"
                 fill
                 sizes="400px"
@@ -406,7 +406,7 @@ export default function AboutPage() {
             </p>
             <div className="relative aspect-video rounded-xl overflow-hidden border border-[#333333]">
               <Image
-                src="/about/video-story-thumb.png"
+                src={getAssetPath("/about/video-story-thumb.png")}
                 alt="Story video"
                 fill
                 className="object-cover"

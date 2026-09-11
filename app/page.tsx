@@ -33,7 +33,7 @@ import { homeCategoryPills } from "@/data/categories";
 import { services, occasions, whyChooseFeatures, processSteps } from "@/data/services";
 import { lookbookItems } from "@/data/gallery";
 import { testimonials } from "@/data/testimonials";
-import { siteConfig, getWhatsAppLink, getTelLink } from "@/data/siteConfig";
+import { siteConfig, getWhatsAppLink, getTelLink, getAssetPath } from "@/data/siteConfig";
 
 export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState("trending");
@@ -131,7 +131,7 @@ export default function HomePage() {
             <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-end">
               <div className="relative w-full max-w-[540px] aspect-[4/3] sm:aspect-[16/11] flex items-center justify-center group">
                 <Image
-                  src="/assets/2.png"
+                  src={getAssetPath("/assets/2.png")}
                   alt="Sri Penusila Custom T-Shirts Fashion Visual"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -294,7 +294,7 @@ export default function HomePage() {
             >
               <div className="relative aspect-[556/469] w-full overflow-hidden bg-gray-50">
                 <Image
-                  src={occ.image}
+                  src={getAssetPath(occ.image)}
                   alt={occ.title}
                   fill
                   sizes="(max-width: 1024px) 50vw, 33vw"
@@ -326,7 +326,7 @@ export default function HomePage() {
             >
               <div className="relative aspect-[556/469] w-full bg-gray-50">
                 <Image
-                  src={occ.image}
+                  src={getAssetPath(occ.image)}
                   alt={occ.title}
                   fill
                   sizes="80vw"
@@ -401,7 +401,7 @@ export default function HomePage() {
           <div className="lg:col-span-5 flex justify-center">
             <div className="relative w-full max-w-[420px] aspect-square flex items-center justify-center group">
               <Image
-                src="/hero/home-why-choose.png"
+                src={getAssetPath("/hero/home-why-choose.png")}
                 alt="Why Choose Sri Penusila T-Shirts"
                 fill
                 sizes="420px"
@@ -480,7 +480,7 @@ export default function HomePage() {
                 }`}
               >
                 <Image
-                  src={item.image}
+                  src={getAssetPath(item.image)}
                   alt={item.title}
                   fill
                   sizes="33vw"
@@ -496,7 +496,7 @@ export default function HomePage() {
           {lookbookItems.map((item) => (
             <div key={item.id} className="snap-card w-[65vw] max-w-[240px] aspect-square relative rounded-2xl overflow-hidden border border-gray-200">
               <Image
-                src={item.image}
+                src={getAssetPath(item.image)}
                 alt={item.title}
                 fill
                 sizes="65vw"
@@ -532,7 +532,7 @@ export default function HomePage() {
           <div className="flex flex-col items-center gap-2">
             <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-xs">
               <Image
-                src={activeTestimonial.avatar}
+                src={getAssetPath(activeTestimonial.avatar)}
                 alt={activeTestimonial.name}
                 fill
                 sizes="48px"
@@ -641,7 +641,7 @@ export default function HomePage() {
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-gray-200">
               <Image
-                src="/store/map-preview.png"
+                src={getAssetPath("/store/map-preview.png")}
                 alt="Penubarthi Rapur Map"
                 fill
                 sizes="340px"
@@ -650,7 +650,7 @@ export default function HomePage() {
             </div>
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-gray-200">
               <Image
-                src="/store/storefront.png"
+                src={getAssetPath("/store/storefront.png")}
                 alt="Physical Storefront"
                 fill
                 sizes="340px"

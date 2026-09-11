@@ -22,7 +22,7 @@ import {
 import { InstagramIcon, FacebookIcon, YoutubeIcon } from "@/components/SocialIcons";
 import SectionHeading from "@/components/SectionHeading";
 import CTASection from "@/components/CTASection";
-import { siteConfig, getWhatsAppLink, getTelLink } from "@/data/siteConfig";
+import { siteConfig, getWhatsAppLink, getTelLink, getAssetPath } from "@/data/siteConfig";
 import { faqs } from "@/data/faqs";
 import confetti from "canvas-confetti";
 
@@ -98,7 +98,7 @@ export default function ContactPage() {
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative w-full max-w-[480px] aspect-[16/10] flex items-center justify-center group">
               <Image
-                src="/assets/6.png"
+                src={getAssetPath("/assets/6.png")}
                 alt="Contact Sri Penusila Visual"
                 fill
                 sizes="480px"
@@ -362,7 +362,7 @@ export default function ContactPage() {
             <div className="bg-white card-feature border border-[#E7E7E7] p-5 shadow-xs overflow-hidden">
               <div className="relative aspect-[16/8] card-product overflow-hidden border border-[#E7E7E7]">
                 <Image
-                  src="/store/map-preview.png"
+                  src={getAssetPath("/store/map-preview.png")}
                   alt="Sri Penusila Location Map"
                   fill
                   sizes="500px"
@@ -421,7 +421,7 @@ export default function ContactPage() {
               {/* Physical Storefront Photo */}
               <div className="relative aspect-[4/3] card-product overflow-hidden border border-[#E7E7E7] shadow-xs group">
                 <Image
-                  src="/store/storefront.png"
+                  src={getAssetPath("/store/storefront.png")}
                   alt="Sri Penusila Physical Store Front"
                   fill
                   sizes="260px"

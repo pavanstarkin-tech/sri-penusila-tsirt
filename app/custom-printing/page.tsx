@@ -18,7 +18,7 @@ import SectionHeading from "@/components/SectionHeading";
 import CustomizerStudio from "@/components/CustomizerStudio";
 import HowItWorks from "@/components/HowItWorks";
 import { lookbookItems } from "@/data/gallery";
-import { siteConfig, getWhatsAppLink, getTelLink } from "@/data/siteConfig";
+import { siteConfig, getWhatsAppLink, getTelLink, getAssetPath } from "@/data/siteConfig";
 
 function CustomPrintingContent() {
   return (
@@ -81,7 +81,7 @@ function CustomPrintingContent() {
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative w-full max-w-[480px] aspect-[16/11] flex items-center justify-center group">
               <Image
-                src="/assets/4.png"
+                src={getAssetPath("/assets/4.png")}
                 alt="Custom Printing Preview"
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
@@ -147,7 +147,7 @@ function CustomPrintingContent() {
               className="relative w-[190px] sm:w-auto aspect-square shrink-0 snap-start card-product overflow-hidden border border-[#E7E7E7] bg-[#F7F7F7] group hover:shadow-md transition-shadow"
             >
               <Image
-                src={item.image}
+                src={getAssetPath(item.image)}
                 alt={item.title}
                 fill
                 sizes="(max-width: 640px) 200px, 16vw"
