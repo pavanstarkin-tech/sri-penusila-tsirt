@@ -24,7 +24,7 @@ export default function MobileBottomBar() {
   const isContact = pathname === "/contact";
 
   return (
-    <div className="md:hidden fixed bottom-0 inset-x-0 z-40 px-3 pb-3 pointer-events-none">
+    <div className="md:hidden fixed bottom-0 inset-x-0 z-[80] px-3 pb-[max(0.75rem,env(safe-area-inset-bottom,0.75rem))] pointer-events-none">
       <nav
         aria-label="Mobile Navigation"
         className="max-w-md mx-auto pointer-events-auto bg-[#0B0B0B]/95 backdrop-blur-md text-white rounded-2xl border border-[#262626] shadow-2xl px-2 py-1.5 flex items-center justify-around"

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -30,11 +31,16 @@ const navLinks = [
 export default function Header() {
   const pathname = usePathname();
   const { cartCount, setIsCartOpen } = useCart();
+  const [mounted, setMounted] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const openMobileMenu = () => {
     setIsClosing(false);
@@ -179,7 +185,7 @@ export default function Header() {
               )}
             </button>
 
-            {/* WhatsApp / Enquire Button (Desktop) */}
+            {/* WhatsApp / Enquire Button (Desktop only) */}
             <Link
               href={getWhatsAppLink(siteConfig.phones[0], "Hi Sri Penusila, I want to enquire about custom t-shirt printing.")}
               target="_blank"
@@ -188,17 +194,6 @@ export default function Header() {
             >
               <MessageCircle className="w-4 h-4 fill-white text-white" />
               <span>WhatsApp / Enquire</span>
-            </Link>
-
-            {/* Circular WhatsApp Button (Mobile) */}
-            <Link
-              href={getWhatsAppLink(siteConfig.phones[0], "Hi Sri Penusila, I have a t-shirt question.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Chat on WhatsApp"
-              className="md:hidden flex items-center justify-center w-9 h-9 bg-[#25D366] text-white rounded-full shadow-sm active:scale-95"
-            >
-              <MessageCircle className="w-4 h-4 fill-white text-white" />
             </Link>
           </div>
         </div>
@@ -234,12 +229,12 @@ export default function Header() {
         )}
       </header>
 
-      {/* 3D INTERACTIVE EDITORIAL MOBILE NAVIGATION DRAWER */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden flex">
+      {/* 3D INTERACTIVE EDITORIAL MOBILE NAVIGATION DRAWER (Portaled to document.body) */}
+      {mounted && mobileMenuOpen && createPortal(
+        <div className="fixed inset-0 z-[999] lg:hidden flex">
           {/* Backdrop (tap to smoothly dismiss and expand background shell back) */}
           <div
-            className={`fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-350 ${
+            className={`fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity duration-350 ${
               isClosing ? "opacity-0" : "opacity-100 animate-in fade-in"
             }`}
             onClick={closeMobileMenu}
@@ -247,12 +242,12 @@ export default function Header() {
 
           {/* 3D Drawer Body */}
           <div
-            className={`relative w-[82vw] max-w-sm bg-[#0B0B0B] text-white shadow-[0_0_50px_rgba(0,0,0,0.9)] flex flex-col z-10 border-r border-[#222222] ${
+            className={`relative w-[280px] sm:w-[320px] max-w-[85vw] h-full bg-[#0B0B0B] text-white shadow-[0_0_60px_rgba(0,0,0,0.95)] flex flex-col z-10 border-r border-[#222222] ${
               isClosing ? "drawer-3d-exit" : "drawer-3d-enter"
             }`}
           >
             {/* Drawer Top Header */}
-            <div className="p-5 border-b border-[#222222] flex items-center justify-between bg-[#111111]/80 backdrop-blur-md">
+            <div className="p-4 sm:p-5 border-b border-[#222222] flex items-center justify-between bg-[#111111]/90 backdrop-blur-md">
               <div className="flex items-center gap-2.5">
                 <div className="relative w-9 h-9 rounded-full overflow-hidden border border-amber-300/40 shadow-xs">
                   <Image
@@ -354,7 +349,8 @@ export default function Header() {
               </a>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

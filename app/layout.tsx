@@ -70,7 +70,7 @@ export default function RootLayout({
         <CartProvider>
           <WishlistProvider>
             {/* 3D Transformable App Content Shell */}
-            <div id="app-root-shell" className="min-h-screen flex flex-col w-full bg-white relative">
+            <div id="app-root-shell" className="min-h-screen flex flex-col w-full bg-white relative pb-20 md:pb-0">
               {/* Level 1: Dark TopBar */}
               <TopBar />
 
@@ -85,10 +85,10 @@ export default function RootLayout({
 
               {/* Global Dark 5-Column Footer */}
               <Footer />
-
-              {/* Floating Mobile Context-Aware Bottom Bar */}
-              <MobileBottomBar />
             </div>
+
+            {/* Floating Mobile Context-Aware Bottom Bar (Always pinned at bottom of viewport) */}
+            <MobileBottomBar />
           </WishlistProvider>
         </CartProvider>
       </body>
