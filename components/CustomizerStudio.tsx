@@ -312,10 +312,11 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
   return (
     <div className="space-y-6">
       {/* ============================================================ */}
+      {/* ============================================================ */}
       {/* 4-STEP PROGRESS HEADER (Tap to open corresponding sheet)      */}
       {/* ============================================================ */}
-      <div className="bg-white rounded-2xl border border-[#E7E7E7] p-2.5 sm:p-4 shadow-xs">
-        <div className="grid grid-cols-4 gap-1.5 sm:gap-4">
+      <div className="bg-white rounded-2xl border border-[#E7E7E7] p-1.5 sm:p-3 shadow-xs">
+        <div className="grid grid-cols-4 gap-1 sm:gap-3">
           {[
             { num: 1, label: "Style", fullLabel: "Choose Style", sub: activeStyle.name, sheet: "style" as const },
             { num: 2, label: "Specs", fullLabel: "Size & Color", sub: `${activeColor.name} • ${selectedSize}`, sheet: "color" as const },
@@ -337,17 +338,17 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
                     handleGenerateQuotation();
                   }
                 }}
-                className={`text-left p-2 sm:p-2.5 rounded-xl border transition-all ${
+                className={`text-left px-1.5 py-1.5 sm:p-2.5 rounded-xl border transition-all flex flex-col justify-center min-h-[38px] sm:min-h-[52px] ${
                   isActive
-                    ? "bg-red-50/60 border-[#E11D2E] ring-1 ring-[#E11D2E]/20"
+                    ? "bg-red-50/70 border-[#E11D2E] ring-1 ring-[#E11D2E]/25 shadow-xs"
                     : isCompleted
-                    ? "bg-gray-50 border-gray-200"
+                    ? "bg-gray-50 border-gray-200 hover:bg-gray-100"
                     : "bg-transparent border-transparent hover:bg-gray-50"
                 }`}
               >
-                <div className="flex items-center gap-1.5 sm:gap-2">
+                <div className="flex items-center gap-1 sm:gap-2">
                   <span
-                    className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-bold shrink-0 ${
+                    className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center text-[9px] sm:text-xs font-black shrink-0 ${
                       isActive
                         ? "bg-[#E11D2E] text-white"
                         : isCompleted
@@ -355,10 +356,10 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
                         : "bg-gray-200 text-gray-600"
                     }`}
                   >
-                    {isCompleted ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : step.num}
+                    {isCompleted ? <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-[3]" /> : step.num}
                   </span>
                   <span
-                    className={`font-poppins font-bold text-xs truncate ${
+                    className={`font-poppins font-bold text-[10px] sm:text-xs whitespace-nowrap leading-none ${
                       isActive ? "text-[#E11D2E]" : "text-[#0B0B0B]"
                     }`}
                   >

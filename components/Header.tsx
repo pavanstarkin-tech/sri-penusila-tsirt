@@ -32,20 +32,29 @@ export default function Header() {
   const { cartCount, setIsCartOpen } = useCart();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
+  const openMobileMenu = () => {
+    setIsClosing(false);
+    setMobileMenuOpen(true);
+    if (typeof document !== "undefined") {
+      document.body.classList.add("mobile-menu-open");
     }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [mobileMenuOpen]);
+  };
+
+  const closeMobileMenu = () => {
+    if (isClosing) return;
+    setIsClosing(true);
+    if (typeof document !== "undefined") {
+      document.body.classList.remove("mobile-menu-open");
+    }
+    setTimeout(() => {
+      setMobileMenuOpen(false);
+      setIsClosing(false);
+    }, 360);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,8 +65,19 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    setMobileMenuOpen(false);
+    if (mobileMenuOpen) {
+      closeMobileMenu();
+    }
   }, [pathname]);
+
+  // Clean up on component unmount
+  useEffect(() => {
+    return () => {
+      if (typeof document !== "undefined") {
+        document.body.classList.remove("mobile-menu-open");
+      }
+    };
+  }, []);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,8 +99,8 @@ export default function Header() {
           {/* Left: Mobile hamburger & Brand Logo */}
           <div className="flex items-center gap-3">
             <button
-              onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden p-2 -ml-1 text-[#111111] hover:text-[#E11D2E] focus:outline-none min-w-[44px] min-h-[44px] flex items-center justify-center"
+              onClick={openMobileMenu}
+              className="lg:hidden p-2 -ml-1 text-[#111111] hover:text-[#E11D2E] focus:outline-none min-w-[44px] min-h-[44px] flex items-center justify-center transition-transform active:scale-90"
               aria-label="Open navigation menu"
             >
               <Menu className="w-6 h-6" />
@@ -214,21 +234,27 @@ export default function Header() {
         )}
       </header>
 
-      {/* FULL-HEIGHT EDITORIAL MOBILE NAVIGATION DRAWER (#0B0B0B) */}
+      {/* 3D INTERACTIVE EDITORIAL MOBILE NAVIGATION DRAWER */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden flex">
-          {/* Backdrop */}
+          {/* Backdrop (tap to smoothly dismiss and expand background shell back) */}
           <div
-            className="fixed inset-0 bg-black/80 backdrop-blur-xs transition-opacity animate-in fade-in duration-200"
-            onClick={() => setMobileMenuOpen(false)}
+            className={`fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-350 ${
+              isClosing ? "opacity-0" : "opacity-100 animate-in fade-in"
+            }`}
+            onClick={closeMobileMenu}
           />
 
-          {/* Drawer Body */}
-          <div className="relative w-full max-w-sm bg-[#0B0B0B] text-white shadow-2xl flex flex-col z-10 animate-in slide-in-from-left duration-300">
+          {/* 3D Drawer Body */}
+          <div
+            className={`relative w-[82vw] max-w-sm bg-[#0B0B0B] text-white shadow-[0_0_50px_rgba(0,0,0,0.9)] flex flex-col z-10 border-r border-[#222222] ${
+              isClosing ? "drawer-3d-exit" : "drawer-3d-enter"
+            }`}
+          >
             {/* Drawer Top Header */}
-            <div className="p-5 border-b border-[#222222] flex items-center justify-between">
+            <div className="p-5 border-b border-[#222222] flex items-center justify-between bg-[#111111]/80 backdrop-blur-md">
               <div className="flex items-center gap-2.5">
-                <div className="relative w-9 h-9 rounded-full overflow-hidden border border-amber-300/40">
+                <div className="relative w-9 h-9 rounded-full overflow-hidden border border-amber-300/40 shadow-xs">
                   <Image
                     src={getAssetPath("/logo/logo-emblem.png")}
                     alt="Sri Penusila Logo"
@@ -247,77 +273,83 @@ export default function Header() {
                 </div>
               </div>
               <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-2 text-gray-400 hover:text-white rounded-lg min-w-[44px] min-h-[44px] flex items-center justify-center"
+                onClick={closeMobileMenu}
+                className="p-2 text-gray-400 hover:text-white rounded-xl bg-white/5 hover:bg-white/10 min-w-[40px] min-h-[40px] flex items-center justify-center transition-all active:scale-90"
                 aria-label="Close menu"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Editorial Numbered Navigation Links */}
-            <div className="flex-1 overflow-y-auto py-6 px-5 space-y-2">
-              <div className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">
-                Navigation
+            {/* Editorial Numbered Navigation Links with Staggered 3D Cascade */}
+            <div className="flex-1 overflow-y-auto py-5 px-4 space-y-2">
+              <div className="text-[10px] font-mono font-bold text-[#FF4D5A] uppercase tracking-widest px-2 mb-2 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E11D2E]" />
+                Navigation Menu
               </div>
-              {navLinks.map((link) => {
+
+              {navLinks.map((link, idx) => {
                 const isActive = pathname === link.href;
                 return (
                   <Link
                     key={link.name}
                     href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center justify-between py-3.5 px-3 rounded-xl border transition-all min-h-[48px] ${
+                    onClick={closeMobileMenu}
+                    style={{
+                      animationDelay: `${idx * 45 + 60}ms`
+                    }}
+                    className={`nav-item-3d flex items-center justify-between py-3 px-3.5 rounded-xl border transition-all duration-200 min-h-[48px] active:scale-[0.98] ${
                       isActive
-                        ? "bg-[#1A1A1A] border-[#E11D2E] text-white"
-                        : "border-transparent text-gray-300 hover:text-white hover:bg-[#141414]"
+                        ? "bg-gradient-to-r from-[#1E1E1E] to-[#141414] border-[#E11D2E] text-white shadow-xs"
+                        : "border-white/5 text-gray-300 hover:text-white hover:bg-[#141414] hover:border-white/10"
                     }`}
                   >
                     <div className="flex items-center gap-3">
                       <span className="font-mono text-xs text-[#E11D2E] font-bold">
                         {link.num}
                       </span>
-                      <span className="font-poppins font-bold text-lg">
+                      <span className="font-poppins font-bold text-base tracking-tight">
                         {link.name}
                       </span>
                     </div>
                     <ArrowUpRight
-                      className={`w-5 h-5 transition-transform ${
-                        isActive ? "text-[#E11D2E]" : "text-gray-500"
+                      className={`w-4 h-4 transition-transform ${
+                        isActive ? "text-[#E11D2E] translate-x-0.5 -translate-y-0.5" : "text-gray-500"
                       }`}
                     />
                   </Link>
                 );
               })}
 
-              {/* Brand Handwritten Phrase */}
-              <div className="pt-6 pb-2 text-center">
-                <div className="font-script text-2xl text-gray-400">
+              {/* Brand Signature Card */}
+              <div className="pt-5 pb-2 text-center">
+                <div className="font-script text-2xl text-gray-300">
                   Wear Your Story
                 </div>
-                <div className="text-[11px] text-gray-500 mt-0.5">
+                <div className="text-[10px] text-gray-500 font-mono mt-0.5">
                   {siteConfig.address.short}
                 </div>
               </div>
             </div>
 
             {/* Drawer Bottom CTAs */}
-            <div className="p-5 border-t border-[#222222] space-y-2.5 bg-[#111111]">
+            <div className="p-4 border-t border-[#222222] space-y-2 bg-[#0E0E0E]">
               <Link
                 href={getWhatsAppLink(siteConfig.phones[0], "Hi Sri Penusila, I want to discuss a custom T-shirt print.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white font-poppins font-bold text-sm py-3 rounded-xl shadow-md min-h-[44px]"
+                onClick={closeMobileMenu}
+                className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white font-poppins font-bold text-xs py-3 rounded-xl shadow-md min-h-[44px] active:scale-[0.98] transition-transform"
               >
                 <MessageCircle className="w-4 h-4 fill-white" />
-                <span>WhatsApp Us</span>
+                <span>WhatsApp Us Direct</span>
               </Link>
 
               <a
                 href={getTelLink(siteConfig.phones[0])}
-                className="w-full flex items-center justify-center gap-2 border border-gray-700 hover:border-gray-500 text-white font-poppins font-semibold text-sm py-3 rounded-xl min-h-[44px]"
+                className="w-full flex items-center justify-center gap-2 border border-gray-800 hover:border-gray-600 bg-white/5 text-white font-poppins font-semibold text-xs py-2.5 rounded-xl min-h-[40px] active:scale-[0.98] transition-transform"
               >
-                <Phone className="w-4 h-4 text-[#FF4D5A]" />
+                <Phone className="w-3.5 h-3.5 text-[#FF4D5A]" />
                 <span>Call {siteConfig.phones[0]}</span>
               </a>
             </div>

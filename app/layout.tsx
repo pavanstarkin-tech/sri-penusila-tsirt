@@ -66,26 +66,29 @@ export default function RootLayout({
       lang="en"
       className={`${poppins.variable} ${montserrat.variable} ${caveat.variable}`}
     >
-      <body className="min-h-screen flex flex-col font-montserrat antialiased text-[#0B0B0B] bg-white">
+      <body className="min-h-screen flex flex-col font-montserrat antialiased text-[#0B0B0B] bg-[#050505] overflow-x-hidden">
         <CartProvider>
           <WishlistProvider>
-            {/* Level 1: Dark TopBar */}
-            <TopBar />
+            {/* 3D Transformable App Content Shell */}
+            <div id="app-root-shell" className="min-h-screen flex flex-col w-full bg-white relative">
+              {/* Level 1: Dark TopBar */}
+              <TopBar />
 
-            {/* Level 2: Main White Header */}
-            <Header />
+              {/* Level 2: Main White Header */}
+              <Header />
 
-            {/* Main Content */}
-            <main className="flex-1">{children}</main>
+              {/* Main Content */}
+              <main className="flex-1">{children}</main>
 
-            {/* Global Slide-Over Cart Drawer */}
-            <CartDrawer />
+              {/* Global Slide-Over Cart Drawer */}
+              <CartDrawer />
 
-            {/* Global Dark 5-Column Footer */}
-            <Footer />
+              {/* Global Dark 5-Column Footer */}
+              <Footer />
 
-            {/* Floating Mobile Context-Aware Bottom Bar */}
-            <MobileBottomBar />
+              {/* Floating Mobile Context-Aware Bottom Bar */}
+              <MobileBottomBar />
+            </div>
           </WishlistProvider>
         </CartProvider>
       </body>
