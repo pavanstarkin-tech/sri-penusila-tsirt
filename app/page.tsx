@@ -40,15 +40,16 @@ export default function HomePage() {
   const [activeService, setActiveService] = useState<string | null>("photos");
   const [testimonialIdx, setTestimonialIdx] = useState(0);
 
-  // Category products (4 uniform cards)
+  // Category products (matching active pill filter)
   const categoryProducts = products.filter((p) => {
     if (activeCategory === "trending") return p.isTrending || p.isPopular;
+    if (activeCategory === "events") return p.categorySlug === "team" || p.categorySlug === "college" || p.categorySlug === "festival";
     return p.categorySlug === activeCategory;
   });
 
-  const displayProducts = categoryProducts.length >= 4
-    ? categoryProducts.slice(0, 4)
-    : products.slice(0, 4);
+  const displayProducts = categoryProducts.length > 0
+    ? categoryProducts.slice(0, 8)
+    : products.slice(0, 8);
 
   const activeTestimonial = testimonials[testimonialIdx] || testimonials[0];
 
