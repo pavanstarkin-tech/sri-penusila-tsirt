@@ -401,7 +401,7 @@ export default function HomePage() {
           <div className="lg:col-span-5 flex justify-center">
             <div className="relative w-full max-w-[420px] aspect-square flex items-center justify-center group">
               <Image
-                src={getAssetPath("/hero/home-why-choose.png")}
+                src={getAssetPath("/assets/5.png")}
                 alt="Why Choose Sri Penusila T-Shirts"
                 fill
                 sizes="420px"
