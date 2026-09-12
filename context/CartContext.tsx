@@ -12,6 +12,7 @@ export interface CartItem {
   size: string;
   color: string;
   quantity: number;
+  isCustom?: boolean;
   customText?: string;
   customDesignUrl?: string;
 }
