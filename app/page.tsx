@@ -449,119 +449,180 @@ export default function HomePage() {
       {/* ============================================================ */}
       {/* 8. GALLERY — EDITORIAL MASONRY / MOBILE SNAP RAIL            */}
       {/* ============================================================ */}
-      <section className="max-w-[1280px] mx-auto px-4 sm:px-8">
+      <section className="max-w-[1280px] mx-auto px-4 sm:px-8 pt-4 pb-8 sm:pb-12">
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 gap-4">
           <div>
             <div className="section-label mb-2">OUR GALLERY</div>
             <h2 className="font-poppins font-extrabold text-section-headline text-[#0B0B0B]">
               T-Shirt Lookbook
             </h2>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">
               Real Designs. Real People. Real Stories.
             </p>
           </div>
           <Link
             href="/designs"
-            className="inline-flex items-center gap-1.5 border border-[#E11D2E] text-[#E11D2E] hover:bg-red-50 font-poppins font-semibold text-xs px-5 py-2.5 rounded-xl transition-colors"
+            className="inline-flex items-center gap-1.5 border border-[#E11D2E] text-[#E11D2E] hover:bg-red-50 font-poppins font-semibold text-xs px-5 py-2.5 rounded-xl transition-colors shrink-0"
           >
             <span>View All Designs</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        {/* Desktop Asymmetric Masonry */}
-        <div className="hidden sm:grid grid-cols-6 gap-3.5">
-          {lookbookItems.map((item, idx) => {
-            const isLarge = idx === 0 || idx === 3;
-            return (
-              <div
-                key={item.id}
-                className={`relative rounded-2xl overflow-hidden border border-gray-200 group hover:shadow-md transition-shadow ${
-                  isLarge ? "col-span-2 row-span-2 aspect-square" : "col-span-2 aspect-[4/3]"
-                }`}
-              >
-                <Image
-                  src={getAssetPath(item.image)}
-                  alt={item.title}
-                  fill
-                  sizes="33vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+        {/* Desktop 4-Column Responsive Grid */}
+        <div className="hidden sm:grid grid-cols-2 md:grid-cols-4 gap-4">
+          {lookbookItems.map((item) => (
+            <div
+              key={item.id}
+              className="group relative rounded-2xl overflow-hidden border border-gray-200 bg-gray-50 aspect-square shadow-xs hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            >
+              <Image
+                src={getAssetPath(item.image)}
+                alt={item.title}
+                fill
+                sizes="(max-width: 1024px) 50vw, 25vw"
+                className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute top-2.5 left-2.5 bg-black/75 backdrop-blur-xs text-white text-[10px] font-semibold px-2 py-0.5 rounded-md">
+                {item.category}
               </div>
-            );
-          })}
+              <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white">
+                <div className="text-xs font-bold truncate">{item.title}</div>
+                <div className="text-[10px] text-gray-300">{item.tag || "Custom Print"}</div>
+              </div>
+            </div>
+          ))}
         </div>
 
-        {/* Mobile Snap Rail */}
-        <div className="sm:hidden snap-rail-x gap-3 -mx-4 px-4 pb-4">
+        {/* Mobile Snap Rail with ample padding */}
+        <div className="sm:hidden snap-rail-x gap-3.5 -mx-4 px-4 pb-6 pt-1">
           {lookbookItems.map((item) => (
-            <div key={item.id} className="snap-card w-[65vw] max-w-[240px] aspect-square relative rounded-2xl overflow-hidden border border-gray-200">
+            <div
+              key={item.id}
+              className="snap-card w-[65vw] max-w-[240px] aspect-square relative rounded-2xl overflow-hidden border border-gray-200 bg-gray-50 shadow-xs shrink-0"
+            >
               <Image
                 src={getAssetPath(item.image)}
                 alt={item.title}
                 fill
                 sizes="65vw"
-                className="object-cover"
+                className="object-contain p-2"
               />
+              <div className="absolute top-2 left-2 bg-black/80 text-white text-[9px] font-semibold px-2 py-0.5 rounded">
+                {item.category}
+              </div>
+              <div className="absolute inset-x-0 bottom-0 p-2.5 bg-gradient-to-t from-black/85 via-black/40 to-transparent text-white">
+                <div className="text-[11px] font-bold truncate">{item.title}</div>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
       {/* ============================================================ */}
-      {/* 9. TESTIMONIALS — LARGE FEATURED QUOTE + CONTROLS           */}
+      {/* 9. TESTIMONIALS — CLIENT FEEDBACK WITH T-SHIRT SHOWCASE      */}
       {/* ============================================================ */}
-      <section className="max-w-[1280px] mx-auto px-4 sm:px-8">
+      <section className="max-w-[1280px] mx-auto px-4 sm:px-8 pt-6 pb-4">
         <SectionHeading
           label="CUSTOMER LOVE"
           title="What Our Customers Say"
-          description="Real stories from happy customers across Rapur and Nellore District."
+          description="Real feedback and photos from happy customers across Rapur and Nellore District."
         />
 
-        <div className="card-feature bg-gray-50 border border-[#E7E7E7] p-6 sm:p-10 max-w-3xl mx-auto shadow-xs">
-          {/* 5 Stars */}
-          <div className="flex items-center gap-1 text-amber-400 mb-4 justify-center">
-            {[...Array(activeTestimonial.rating)].map((_, i) => (
-              <Star key={i} className="w-5 h-5 fill-amber-400" />
-            ))}
+        <div className="card-feature bg-white border border-[#E7E7E7] p-5 sm:p-8 max-w-4xl mx-auto shadow-sm rounded-2xl">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            {/* Left: Customer Review & Rating */}
+            <div className="md:col-span-7 space-y-4">
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 text-amber-400">
+                  {[...Array(activeTestimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-amber-400" />
+                  ))}
+                </div>
+                <span className="text-xs font-bold text-green-700 bg-green-50 border border-green-200 px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <CheckCircle2 className="w-3 h-3 text-green-600" />
+                  Verified Order
+                </span>
+              </div>
+
+              <p className="font-poppins font-medium text-sm sm:text-base text-[#111111] leading-relaxed italic">
+                &ldquo;{activeTestimonial.review}&rdquo;
+              </p>
+
+              <div className="flex items-center gap-3 pt-2 border-t border-gray-100">
+                <div className="relative w-11 h-11 rounded-full overflow-hidden border-2 border-[#E11D2E]/20 shadow-xs shrink-0">
+                  <Image
+                    src={getAssetPath(activeTestimonial.avatar)}
+                    alt={activeTestimonial.name}
+                    fill
+                    sizes="44px"
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <div className="font-poppins font-bold text-sm text-[#0B0B0B]">
+                    {activeTestimonial.name}
+                  </div>
+                  <div className="text-xs text-[#E11D2E] font-semibold">
+                    {activeTestimonial.location}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Real Printed T-Shirt Customer Ordered */}
+            <div className="md:col-span-5 flex flex-col items-center justify-center p-3 rounded-xl bg-gray-50 border border-gray-200 text-center">
+              <div className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-2">
+                Printed Customer Order
+              </div>
+              <div className="relative w-full aspect-[4/3] max-w-[240px] rounded-lg overflow-hidden bg-white p-1 shadow-xs border border-gray-100">
+                <Image
+                  src={getAssetPath(activeTestimonial.productImage || "/tshirts/1.png")}
+                  alt={`${activeTestimonial.name}'s Custom T-shirt`}
+                  fill
+                  sizes="240px"
+                  className="object-contain"
+                />
+              </div>
+              <div className="text-xs font-semibold text-gray-800 mt-2">
+                {activeTestimonial.orderType}
+              </div>
+            </div>
           </div>
 
-          <p className="font-poppins font-medium text-base sm:text-xl text-[#111111] text-center leading-relaxed italic mb-6">
-            &ldquo;{activeTestimonial.review}&rdquo;
-          </p>
+          {/* Navigation Controls */}
+          <div className="flex items-center justify-between pt-6 mt-6 border-t border-gray-100">
+            <button
+              onClick={() =>
+                setTestimonialIdx((prev) => (prev > 0 ? prev - 1 : testimonials.length - 1))
+              }
+              className="text-xs font-bold text-gray-600 hover:text-[#E11D2E] px-3 py-1.5 rounded-lg border border-gray-200 hover:border-[#E11D2E] transition-colors"
+            >
+              ← Previous Review
+            </button>
 
-          <div className="flex flex-col items-center gap-2">
-            <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-xs">
-              <Image
-                src={getAssetPath(activeTestimonial.avatar)}
-                alt={activeTestimonial.name}
-                fill
-                sizes="48px"
-                className="object-cover"
-              />
+            {/* Indicator Dots */}
+            <div className="flex items-center gap-1.5">
+              {testimonials.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setTestimonialIdx(i)}
+                  className={`h-2 rounded-full transition-all ${
+                    testimonialIdx === i ? "bg-[#E11D2E] w-6" : "bg-gray-300 w-2"
+                  }`}
+                  aria-label={`Show testimonial ${i + 1}`}
+                />
+              ))}
             </div>
-            <div className="text-center">
-              <div className="font-poppins font-bold text-sm text-[#0B0B0B]">
-                {activeTestimonial.name}
-              </div>
-              <div className="text-xs text-[#E11D2E] font-semibold">
-                {activeTestimonial.location}
-              </div>
-            </div>
-          </div>
 
-          {/* Testimonial Indicator Dots */}
-          <div className="flex items-center justify-center gap-2 mt-6">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setTestimonialIdx(i)}
-                className={`w-2.5 h-2.5 rounded-full transition-all ${
-                  testimonialIdx === i ? "bg-[#E11D2E] w-6" : "bg-gray-300"
-                }`}
-                aria-label={`Show testimonial ${i + 1}`}
-              />
-            ))}
+            <button
+              onClick={() =>
+                setTestimonialIdx((prev) => (prev < testimonials.length - 1 ? prev + 1 : 0))
+              }
+              className="text-xs font-bold text-gray-600 hover:text-[#E11D2E] px-3 py-1.5 rounded-lg border border-gray-200 hover:border-[#E11D2E] transition-colors"
+            >
+              Next Review →
+            </button>
           </div>
         </div>
       </section>

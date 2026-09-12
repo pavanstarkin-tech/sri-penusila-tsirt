@@ -3,43 +3,64 @@ export interface GalleryItem {
   title: string;
   category: string;
   image: string;
+  tag?: string;
 }
 
 export const lookbookItems: GalleryItem[] = [
   {
     id: "lookbook-1",
-    title: "Discipline Creates Freedom",
-    category: "Motivational",
-    image: "/gallery/lookbook-1.png"
+    title: "College Legends 2026 Batch",
+    category: "College Batch",
+    image: "/tshirts/1.png",
+    tag: "Batch 2026"
   },
   {
     id: "lookbook-2",
-    title: "Smile More :)",
-    category: "Casual / Everyday",
-    image: "/gallery/lookbook-2.png"
+    title: "Business & Corporate Pro Tee",
+    category: "Corporate Uniforms",
+    image: "/tshirts/2.png",
+    tag: "Pro Fit"
   },
   {
     id: "lookbook-3",
-    title: "Premium Fabric Stack",
-    category: "Cotton Quality",
-    image: "/gallery/lookbook-3.png"
+    title: "Birthday Squad Celebration",
+    category: "Birthday Specials",
+    image: "/tshirts/3.png",
+    tag: "Festive"
   },
   {
     id: "lookbook-4",
-    title: "Legends Are Born In College",
-    category: "College Batch",
-    image: "/gallery/lookbook-4.png"
+    title: "Soulmates & Couples Tee",
+    category: "Couple T-Shirts",
+    image: "/tshirts/4.png",
+    tag: "Matching Pair"
   },
   {
     id: "lookbook-5",
-    title: "Good People Good Times",
-    category: "Squad Vibes",
-    image: "/gallery/lookbook-5.png"
+    title: "Urban Streetwear Heavyweight",
+    category: "Drop Shoulder",
+    image: "/tshirts/5.png",
+    tag: "240 GSM"
   },
   {
     id: "lookbook-6",
-    title: "Mental Health Matters",
-    category: "Awareness & Quotes",
-    image: "/gallery/lookbook-6.png"
+    title: "Champions Team & Sports Tee",
+    category: "Sports & Squads",
+    image: "/tshirts/6.png",
+    tag: "Athletic"
+  },
+  {
+    id: "lookbook-7",
+    title: "Festival & Cultural Special Tee",
+    category: "Festival Vibes",
+    image: "/tshirts/7.png",
+    tag: "Special"
+  },
+  {
+    id: "lookbook-8",
+    title: "Full-Sleeve Winter Edition",
+    category: "Winter Comfort",
+    image: "/tshirts/8.png",
+    tag: "Full Sleeve"
   }
 ];
