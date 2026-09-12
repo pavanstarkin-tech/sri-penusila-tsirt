@@ -8,7 +8,6 @@ import { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import confetti from "canvas-confetti";
-
 import { getAssetPath } from "@/data/siteConfig";
 
 interface ProductCardProps {
@@ -52,10 +51,10 @@ export default function ProductCard({ product, className = "" }: ProductCardProp
 
   return (
     <div
-      className={`group bg-white border border-[#E7E7E7] overflow-hidden flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:shadow-md hover:border-gray-300 card-product ${className}`}
+      className={`group bg-white border border-[#E7E7E7] overflow-hidden flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:shadow-md hover:border-gray-300 card-product rounded-2xl ${className}`}
     >
       {/* 1. IMAGE STAGE */}
-      <div className="relative aspect-[4/3.8] sm:aspect-square w-full bg-[#F8F8F8] overflow-hidden flex items-center justify-center p-3 border-b border-[#EFEFEF]">
+      <div className="relative aspect-square w-full bg-[#F8F8F8] overflow-hidden flex items-center justify-center p-2.5 sm:p-4 border-b border-[#EFEFEF]">
         {/* Floating Heart Button */}
         <button
           onClick={(e) => {
@@ -63,7 +62,7 @@ export default function ProductCard({ product, className = "" }: ProductCardProp
             e.stopPropagation();
             toggleFavorite(product.id);
           }}
-          className={`absolute top-2.5 right-2.5 z-10 w-8 h-8 rounded-full bg-white/90 backdrop-blur-xs border flex items-center justify-center shadow-2xs transition-all active:scale-125 min-w-[36px] min-h-[36px] ${
+          className={`absolute top-2 right-2 sm:top-2.5 sm:right-2.5 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 backdrop-blur-xs border flex items-center justify-center shadow-2xs transition-all active:scale-125 min-w-[28px] sm:min-w-[32px] min-h-[28px] sm:min-h-[32px] ${
             isFav
               ? "text-[#E11D2E] border-red-200 bg-red-50/70"
               : "text-gray-400 border-gray-200 hover:text-[#E11D2E] hover:border-red-200"
@@ -71,11 +70,11 @@ export default function ProductCard({ product, className = "" }: ProductCardProp
           aria-label={isFav ? "Remove from wishlist" : "Add to wishlist"}
         >
           <Heart
-            className={`w-4 h-4 transition-transform ${isFav ? "fill-[#E11D2E] scale-110" : ""}`}
+            className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform ${isFav ? "fill-[#E11D2E] scale-110" : ""}`}
           />
         </button>
 
-        {/* Product Image with smooth 1.03 hover scale */}
+        {/* Product Image with smooth hover scale */}
         <div className="relative w-full h-full transition-transform duration-300 group-hover:scale-[1.03]">
           <Image
             src={getAssetPath(product.image)}
@@ -88,22 +87,22 @@ export default function ProductCard({ product, className = "" }: ProductCardProp
       </div>
 
       {/* 2. LAYERED PRODUCT INFO & ACTION TRAY */}
-      <div className="p-3.5 sm:p-4 flex-1 flex flex-col justify-between bg-white">
+      <div className="p-2.5 sm:p-4 flex-1 flex flex-col justify-between bg-white">
         <div>
-          <div className="text-[10px] sm:text-[11px] font-bold text-[#E11D2E] uppercase tracking-wider mb-1 truncate">
+          <div className="text-[9px] sm:text-[11px] font-bold text-[#E11D2E] uppercase tracking-wider mb-0.5 sm:mb-1 truncate">
             {product.category}
           </div>
-          <h3 className="font-poppins font-bold text-sm sm:text-[15px] text-[#111111] leading-snug truncate group-hover:text-[#E11D2E] transition-colors">
+          <h3 className="font-poppins font-bold text-xs sm:text-[14px] text-[#111111] leading-snug line-clamp-1 sm:line-clamp-2 group-hover:text-[#E11D2E] transition-colors min-h-[1.1rem] sm:min-h-[2.4rem]">
             {product.name}
           </h3>
 
           {/* Price Row */}
-          <div className="mt-2 flex items-baseline gap-2">
-            <span className="font-poppins font-extrabold text-base sm:text-lg text-[#0B0B0B]">
+          <div className="mt-1 sm:mt-2 flex items-baseline gap-1.5 sm:gap-2 flex-wrap">
+            <span className="font-poppins font-extrabold text-sm sm:text-lg text-[#0B0B0B]">
               ₹{product.price}
             </span>
             {product.originalPrice && (
-              <span className="text-xs text-gray-400 line-through">
+              <span className="text-[10px] sm:text-xs text-gray-400 line-through">
                 ₹{product.originalPrice}
               </span>
             )}
@@ -111,18 +110,18 @@ export default function ProductCard({ product, className = "" }: ProductCardProp
         </div>
 
         {/* 3. INTEGRATED BOTTOM ACTION TRAY */}
-        <div className="mt-3.5 pt-3 border-t border-gray-100 flex items-center gap-2">
+        <div className="mt-2.5 sm:mt-3.5 pt-2 sm:pt-3 border-t border-gray-100 flex items-center gap-1.5 sm:gap-2">
           <Link
             href={`/custom-printing?product=${product.id}`}
-            className="flex-1 flex items-center justify-center gap-1.5 bg-[#E11D2E] hover:bg-[#C51322] text-white font-poppins font-semibold text-xs py-2 px-3 rounded-xl shadow-xs transition-all active:scale-95 text-center min-h-[38px]"
+            className="flex-1 flex items-center justify-center gap-1 bg-[#E11D2E] hover:bg-[#C51322] text-white font-poppins font-semibold text-[11px] sm:text-xs py-1.5 sm:py-2 px-1.5 sm:px-3 rounded-lg sm:rounded-xl shadow-2xs transition-all active:scale-95 text-center min-h-[32px] sm:min-h-[38px]"
           >
             <span>Customize</span>
-            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 transition-transform group-hover:translate-x-0.5" />
           </Link>
 
           <button
             onClick={handleAddToCart}
-            className={`w-9 h-9 rounded-xl border flex items-center justify-center transition-all shrink-0 min-w-[38px] min-h-[38px] ${
+            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl border flex items-center justify-center transition-all shrink-0 min-w-[32px] sm:min-w-[38px] min-h-[32px] sm:min-h-[38px] ${
               isAdded
                 ? "bg-emerald-600 border-emerald-600 text-white"
                 : "border-[#E11D2E] text-[#E11D2E] hover:bg-red-50 active:scale-90"
@@ -131,9 +130,9 @@ export default function ProductCard({ product, className = "" }: ProductCardProp
             title="Add to cart"
           >
             {isAdded ? (
-              <Check className="w-4 h-4" />
+              <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             ) : (
-              <ShoppingCart className="w-4 h-4" />
+              <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             )}
           </button>
         </div>
