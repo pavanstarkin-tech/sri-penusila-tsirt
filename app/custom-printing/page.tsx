@@ -117,7 +117,7 @@ function CustomPrintingContent() {
       </section>
 
       {/* ============================================================ */}
-      {/* GET INSPIRED (LOOKBOOK ROW WITH MOBILE SNAP RAIL)            */}
+      {/* REAL CUSTOMER CREATIONS — INSPIRATION GALLERY                */}
       {/* ============================================================ */}
       <section className="max-w-[1280px] mx-auto px-4 sm:px-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 gap-4">
@@ -126,35 +126,45 @@ function CustomPrintingContent() {
             <h2 className="font-poppins font-extrabold text-2xl sm:text-3xl text-[#0B0B0B]">
               Real Customer Creations
             </h2>
-            <p className="text-xs text-gray-500 mt-1">
-              Browse recent bespoke pieces printed right here at our Rapur studio.
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">
+              Browse recent bespoke pieces printed right here at our Penubarthi, Rapur studio.
             </p>
           </div>
           <Link
             href="/designs"
-            className="inline-flex items-center gap-1.5 border border-[#E11D2E] text-[#E11D2E] hover:bg-[#FFF1F2] font-poppins font-semibold text-xs px-4 py-2 rounded-xl transition-colors"
+            className="inline-flex items-center gap-1.5 border border-[#E11D2E] text-[#E11D2E] hover:bg-[#FFF1F2] font-poppins font-semibold text-xs px-4 py-2.5 rounded-xl transition-colors shrink-0"
           >
             <span>Explore 100+ Graphic Templates</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        {/* Mobile Horizontal Snap Rail / Desktop 6-Column Grid */}
-        <div className="snap-rail-x flex sm:grid sm:grid-cols-3 lg:grid-cols-6 gap-3.5 overflow-x-auto pb-3 sm:pb-0">
+        {/* Responsive Grid: 4-col desktop, 2-col tablet, smooth scroll mobile */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-5">
           {lookbookItems.map((item) => (
             <div
               key={item.id}
-              className="relative w-[190px] sm:w-auto aspect-square shrink-0 snap-start card-product overflow-hidden border border-[#E7E7E7] bg-[#F7F7F7] group hover:shadow-md transition-shadow"
+              className="group relative rounded-2xl overflow-hidden border border-gray-200 bg-gray-50 aspect-square shadow-xs hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
             >
-              <Image
-                src={getAssetPath(item.image)}
-                alt={item.title}
-                fill
-                sizes="(max-width: 640px) 200px, 16vw"
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
-                <span className="text-white text-[11px] font-medium truncate">{item.title}</span>
+              <div className="relative w-full h-full p-2 flex items-center justify-center">
+                <Image
+                  src={getAssetPath(item.image)}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+
+              {/* Top Category Badge */}
+              <div className="absolute top-2.5 left-2.5 bg-black/75 backdrop-blur-xs text-white text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-xs">
+                {item.category}
+              </div>
+
+              {/* Bottom Caption Overlay */}
+              <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white">
+                <div className="text-xs font-bold truncate">{item.title}</div>
+                <div className="text-[10px] text-gray-300">{item.tag || "Custom Print"}</div>
               </div>
             </div>
           ))}
