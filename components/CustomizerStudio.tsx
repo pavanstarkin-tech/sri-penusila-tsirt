@@ -68,7 +68,14 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
   const [isPreviewMode, setIsPreviewMode] = useState<boolean>(false);
 
   // Mobile Bottom Sheet Active Tool
-  const [mobileSheet, setMobileSheet] = useState<"style" | "color" | "upload" | "text" | "graphics" | "layers" | null>(null);
+  const [mobileSheet, setMobileSheet] = useState<"style" | "color" | "upload" | "text" | "graphics" | "layers" | "flow" | null>(null);
+
+  // Auto-open mobile bottom sheet when user lands on mobile mode
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.innerWidth < 1024) {
+      setMobileSheet("style");
+    }
+  }, []);
 
   // Quotation Modal & HTML-to-Canvas
   const [isQuotationOpen, setIsQuotationOpen] = useState(false);
@@ -198,7 +205,7 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
       setMobileSheet("upload");
     } else if (currentStep === 3) {
       setCurrentStep(4);
-      handleGenerateQuotation();
+      setMobileSheet("flow");
     } else if (currentStep === 4) {
       handleGenerateQuotation();
     }
@@ -207,7 +214,7 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
   const handlePrevStep = () => {
     if (currentStep === 4) {
       setCurrentStep(3);
-      setIsQuotationOpen(false);
+      setMobileSheet("upload");
     } else if (currentStep === 3) {
       setCurrentStep(2);
       setMobileSheet("color");
@@ -877,92 +884,211 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
       </div>
 
       {/* ============================================================ */}
-      {/* MOBILE BOTTOM SHEETS (Slide up for touch editing)            */}
+      {/* MOBILE INTEGRATED STEP-BY-STEP CUSTOMIZATION SHEET            */}
       {/* ============================================================ */}
-      {/* 1. Style Selector Sheet */}
       <MobileToolSheet
-        isOpen={mobileSheet === "style"}
+        isOpen={Boolean(mobileSheet)}
         onClose={() => setMobileSheet(null)}
-        title="Select Garment Style"
-      >
-        <StyleSelector
-          selectedStyleId={selectedStyleId}
-          currentColorHex={activeColor.hex}
-          onSelectStyle={(id) => {
-            handleSelectStyle(id);
-            setMobileSheet(null);
-          }}
-        />
-      </MobileToolSheet>
-
-      {/* 2. Color & Size Sheet */}
-      <MobileToolSheet
-        isOpen={mobileSheet === "color"}
-        onClose={() => setMobileSheet(null)}
-        title="Choose Color, Size & Quantity"
-      >
-        <ColorSizeSelector
-          colors={activeStyle.colors}
-          selectedColorId={selectedColorId}
-          onSelectColor={setSelectedColorId}
-          availableSizes={activeStyle.availableSizes}
-          selectedSize={selectedSize}
-          onSelectSize={setSelectedSize}
-          quantity={quantity}
-          onChangeQuantity={setQuantity}
-        />
-      </MobileToolSheet>
-
-      {/* 3. Upload & Design Tools Sheet */}
-      <MobileToolSheet
-        isOpen={
-          mobileSheet === "upload" ||
-          mobileSheet === "text" ||
-          mobileSheet === "graphics" ||
-          mobileSheet === "layers"
+        title={
+          currentStep === 1
+            ? "1. Select Garment Style"
+            : currentStep === 2
+            ? "2. Color, Size & Quantity"
+            : currentStep === 3
+            ? `3. Add Artwork (${activeSide.toUpperCase()})`
+            : "4. Review & Finalize Order"
         }
-        onClose={() => setMobileSheet(null)}
-        title={`${
-          mobileSheet === "layers"
-            ? "Manage Layers"
-            : mobileSheet === "text"
-            ? "Add Custom Text"
-            : mobileSheet === "graphics"
-            ? "Preset Graphics"
-            : "Upload Artwork"
-        } (${activeSide.toUpperCase()})`}
+        subtitle={
+          currentStep === 1
+            ? "Choose from our premium cotton apparel & traditional wear"
+            : currentStep === 2
+            ? `${activeStyle.name} • Base ₹${activeStyle.basePrice}`
+            : currentStep === 3
+            ? "Upload your image, add custom text, or pick preset graphics"
+            : `Total: ₹${estimatedTotalPrice} (${quantity} pcs)`
+        }
+        stepIndicator={`Step ${currentStep} of 4`}
+        onBack={currentStep > 1 ? handlePrevStep : undefined}
+        backDisabled={currentStep === 1}
+        onNext={handleNextStep}
+        nextText={
+          currentStep === 1
+            ? "Next: Color & Size"
+            : currentStep === 2
+            ? "Next: Add Artwork"
+            : currentStep === 3
+            ? "Next: Review & Finish"
+            : "Get WhatsApp Quote"
+        }
       >
-        <DesignTools
-          activeSide={activeSide}
-          layers={activeLayers}
-          selectedLayerId={selectedLayerId}
-          initialTab={
-            mobileSheet === "text"
-              ? "text"
-              : mobileSheet === "graphics"
-              ? "graphics"
-              : mobileSheet === "layers"
-              ? "layers"
-              : "upload"
-          }
-          onSelectLayer={setSelectedLayerId}
-          onAddImageLayer={(l) => {
-            handleAddImageLayer(l);
-            setMobileSheet(null);
-          }}
-          onAddTextLayer={(l) => {
-            handleAddTextLayer(l);
-            setMobileSheet(null);
-          }}
-          onAddElementLayer={(g) => {
-            handleAddElementLayer(g);
-            setMobileSheet(null);
-          }}
-          onUpdateLayer={handleUpdateLayer}
-          onDeleteLayer={handleDeleteLayer}
-          onDuplicateLayer={handleDuplicateLayer}
-          onReorderLayer={handleReorderLayer}
-        />
+        {currentStep === 1 && (
+          <div className="space-y-4">
+            <div className="text-xs font-semibold text-gray-600 bg-gray-50 p-2.5 rounded-xl border border-gray-100 flex items-center gap-2">
+              <Shirt className="w-4 h-4 text-[#E11D2E] shrink-0" />
+              <span>Select the garment or traditional wear you want to customize:</span>
+            </div>
+            <StyleSelector
+              selectedStyleId={selectedStyleId}
+              currentColorHex={activeColor.hex}
+              onSelectStyle={(id) => {
+                handleSelectStyle(id);
+              }}
+            />
+          </div>
+        )}
+
+        {currentStep === 2 && (
+          <div className="space-y-4">
+            <div className="text-xs font-semibold text-gray-600 bg-gray-50 p-2.5 rounded-xl border border-gray-100 flex items-center gap-2">
+              <Palette className="w-4 h-4 text-[#E11D2E] shrink-0" />
+              <span>Choose your fabric color, sizing, and quantity:</span>
+            </div>
+            <ColorSizeSelector
+              colors={activeStyle.colors}
+              selectedColorId={selectedColorId}
+              onSelectColor={setSelectedColorId}
+              availableSizes={activeStyle.availableSizes}
+              selectedSize={selectedSize}
+              onSelectSize={setSelectedSize}
+              quantity={quantity}
+              onChangeQuantity={setQuantity}
+            />
+          </div>
+        )}
+
+        {currentStep === 3 && (
+          <div className="space-y-4">
+            {/* Front / Back Side Switcher */}
+            <div className="flex items-center justify-between bg-gray-100 p-1.5 rounded-xl">
+              <button
+                type="button"
+                onClick={() => setActiveSide("front")}
+                className={`flex-1 py-2 rounded-lg font-poppins font-bold text-xs transition-all ${
+                  activeSide === "front"
+                    ? "bg-white text-[#0B0B0B] shadow-xs"
+                    : "text-gray-500 hover:text-gray-900"
+                }`}
+              >
+                Front Side ({frontCustomization.layers.length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveSide("back")}
+                className={`flex-1 py-2 rounded-lg font-poppins font-bold text-xs transition-all ${
+                  activeSide === "back"
+                    ? "bg-white text-[#0B0B0B] shadow-xs"
+                    : "text-gray-500 hover:text-gray-900"
+                }`}
+              >
+                Back Side ({backCustomization.layers.length})
+              </button>
+            </div>
+
+            <DesignTools
+              activeSide={activeSide}
+              layers={activeLayers}
+              selectedLayerId={selectedLayerId}
+              initialTab={
+                mobileSheet === "text"
+                  ? "text"
+                  : mobileSheet === "graphics"
+                  ? "graphics"
+                  : mobileSheet === "layers"
+                  ? "layers"
+                  : "upload"
+              }
+              onSelectLayer={setSelectedLayerId}
+              onAddImageLayer={(l) => {
+                handleAddImageLayer(l);
+              }}
+              onAddTextLayer={(l) => {
+                handleAddTextLayer(l);
+              }}
+              onAddElementLayer={(g) => {
+                handleAddElementLayer(g);
+              }}
+              onUpdateLayer={handleUpdateLayer}
+              onDeleteLayer={handleDeleteLayer}
+              onDuplicateLayer={handleDuplicateLayer}
+              onReorderLayer={handleReorderLayer}
+            />
+          </div>
+        )}
+
+        {currentStep === 4 && (
+          <div className="space-y-4 text-[#0B0B0B]">
+            {/* Order Specification Summary */}
+            <div className="bg-gray-50 rounded-2xl border border-gray-200 p-4 space-y-3">
+              <h4 className="font-poppins font-bold text-xs uppercase tracking-wider text-gray-500">
+                Custom Order Summary
+              </h4>
+
+              <div className="space-y-2 text-xs">
+                <div className="flex justify-between py-1 border-b border-gray-200">
+                  <span className="text-gray-600">Product Style:</span>
+                  <span className="font-bold text-[#0B0B0B]">{activeStyle.name}</span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-gray-200">
+                  <span className="text-gray-600">Fabric Color:</span>
+                  <span className="font-bold text-[#0B0B0B] flex items-center gap-1.5">
+                    <span
+                      className="w-3.5 h-3.5 rounded-full border border-gray-300 inline-block"
+                      style={{ backgroundColor: activeColor.hex }}
+                    />
+                    {activeColor.name}
+                  </span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-gray-200">
+                  <span className="text-gray-600">Selected Size & Qty:</span>
+                  <span className="font-bold text-[#0B0B0B]">
+                    Size {selectedSize} • {quantity} pcs
+                  </span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-gray-200">
+                  <span className="text-gray-600">Front Artwork:</span>
+                  <span className="font-bold text-[#0B0B0B]">
+                    {frontCustomization.layers.length > 0
+                      ? `${frontCustomization.layers.length} Layers (+₹50)`
+                      : "Blank Front"}
+                  </span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-gray-200">
+                  <span className="text-gray-600">Back Artwork:</span>
+                  <span className="font-bold text-[#0B0B0B]">
+                    {backCustomization.layers.length > 0
+                      ? `${backCustomization.layers.length} Layers (+₹70)`
+                      : "Blank Back"}
+                  </span>
+                </div>
+                <div className="flex justify-between pt-2 text-sm font-black text-[#E11D2E]">
+                  <span>Total Estimated Price:</span>
+                  <span>₹{estimatedTotalPrice}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Direct Action Options in Step 4 */}
+            <div className="grid grid-cols-2 gap-2 pt-1">
+              <button
+                type="button"
+                onClick={handleAddToCart}
+                className="w-full py-3 bg-[#0B0B0B] hover:bg-[#1C1C1C] text-white font-poppins font-bold text-xs rounded-xl shadow-xs flex items-center justify-center gap-1.5 active:scale-95 transition-all"
+              >
+                <ShoppingBag className="w-4 h-4 text-[#FF4D5A]" />
+                <span>Add to Bag</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={handleGenerateQuotation}
+                className="w-full py-3 bg-[#25D366] hover:bg-[#1EBE5D] text-white font-poppins font-bold text-xs rounded-xl shadow-md flex items-center justify-center gap-1.5 active:scale-95 transition-all"
+              >
+                <WhatsappIcon className="w-4 h-4" />
+                <span>WhatsApp Quote</span>
+              </button>
+            </div>
+          </div>
+        )}
       </MobileToolSheet>
 
       {/* ============================================================ */}
