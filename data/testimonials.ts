@@ -69,12 +69,12 @@ export const testimonials: Testimonial[] = [
   {
     id: "nc-6",
     name: "Praveen Naidu",
-    location: "Rapur (Sports Club)",
+    location: "Rapur (Devasthanam Committee)",
     avatar: "/testimonials/avatar-3.png",
     rating: 5,
-    review: "Customized sports squad jerseys with player names and numbers on back. Perfect fit, breathable fabric, and finished in just 2 days. Super satisfied with the service!",
-    orderType: "25 pcs • Champions Cricket Squad",
-    productImage: "/newcollection/7.png",
+    review: "Ordered 50 pcs of the Heritage Festival Kurtas with custom temple emblem prints for our annual Brahmotsavam. Outstanding cotton comfort and crisp golden printing!",
+    orderType: "50 pcs • Temple Festival Order",
+    productImage: "/kurthas/1.png",
     verified: true
   }
 ];

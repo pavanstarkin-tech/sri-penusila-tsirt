@@ -190,35 +190,6 @@ export const products: Product[] = [
     "designStyle": "Illustration"
   },
   {
-    "id": "new-athletic-sports-squad",
-    "name": "Champions Athletic Squad Jersey",
-    "category": "Team & Group",
-    "categorySlug": "team",
-    "price": 429,
-    "originalPrice": 649,
-    "image": "/newcollection/7.png",
-    "colors": [
-      "#1E3A8A",
-      "#0B0B0B",
-      "#FFFFFF",
-      "#E11D2E"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL",
-      "XXL",
-      "3XL"
-    ],
-    "isPopular": true,
-    "isCustom": true,
-    "rating": 4.8,
-    "reviewsCount": 49,
-    "description": "High-performance sports squad tee with custom team back numbers, captain badges, and moisture-wicking breathable fabric.",
-    "designStyle": "Text Only"
-  },
-  {
     "id": "chill-mode",
     "name": "Chill Mode",
     "category": "Funny & Quote",
@@ -1056,33 +1027,6 @@ export const products: Product[] = [
     "rating": 4.9,
     "reviewsCount": 91,
     "description": "240 GSM drop-shoulder boxy oversized t-shirt with high-density screen print and breathable luxury combed cotton.",
-    "designStyle": "Graphic"
-  },
-  {
-    "id": "new-creative-illustration",
-    "name": "Creative Art & Anime Special",
-    "category": "Anime & Pop Culture",
-    "categorySlug": "anime",
-    "price": 499,
-    "originalPrice": 749,
-    "image": "/newcollection/66.png",
-    "colors": [
-      "#0B0B0B",
-      "#FFFFFF",
-      "#E11D2E"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL",
-      "XXL"
-    ],
-    "isTrending": true,
-    "isPopular": true,
-    "rating": 4.9,
-    "reviewsCount": 76,
-    "description": "Detailed anime artwork with intense color fidelity and fade-resistant printing on luxury cotton.",
     "designStyle": "Graphic"
   },
   {

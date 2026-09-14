@@ -113,13 +113,6 @@ export const lookbookItems: GalleryItem[] = [
     tag: "Silk Blend ₹299"
   },
   {
-    id: "lookbook-nc-66",
-    title: "Creative Anime & Art Print",
-    category: "Pop Culture Tee",
-    image: "/newcollection/66.png",
-    tag: "HD Print"
-  },
-  {
     id: "lookbook-t-1",
     title: "College Legends 2026 Batch",
     category: "College Apparel",
