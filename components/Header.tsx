@@ -123,14 +123,14 @@ export default function Header() {
               <Menu className="w-6 h-6" />
             </button>
 
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="relative w-10 h-10 sm:w-11 sm:h-11 shrink-0 rounded-full overflow-hidden border border-amber-300/40 shadow-xs">
+            <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group">
+              <div className="relative w-11 h-11 sm:w-12 sm:h-12 shrink-0 transition-transform duration-200 group-hover:scale-105">
                 <Image
                   src={getAssetPath("/logo/logo-emblem.png")}
-                  alt="Sri Penusila Logo"
+                  alt="Sri Penusila Custom Apparel & Printing Logo"
                   fill
-                  sizes="44px"
-                  className="object-contain"
+                  sizes="(max-width: 640px) 44px, 48px"
+                  className="object-contain filter drop-shadow-xs"
                   priority
                 />
               </div>
@@ -260,13 +260,13 @@ export default function Header() {
             {/* Drawer Top Header */}
             <div className="p-3.5 sm:p-4 border-b border-[#222222] flex items-center justify-between bg-[#141414] shrink-0 gap-2">
               <div className="flex items-center gap-2 min-w-0 pr-1">
-                <div className="relative w-8 h-8 rounded-full overflow-hidden border border-amber-300/40 shadow-xs shrink-0">
+                <div className="relative w-9 h-9 shrink-0">
                   <Image
                     src={getAssetPath("/logo/logo-emblem.png")}
                     alt="Sri Penusila Logo"
                     fill
-                    sizes="32px"
-                    className="object-contain"
+                    sizes="36px"
+                    className="object-contain filter drop-shadow-xs"
                   />
                 </div>
                 <div className="min-w-0 truncate">

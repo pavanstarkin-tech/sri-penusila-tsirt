@@ -28,13 +28,13 @@ export default function Footer() {
           {/* Col 1: Brand & Identity (4 cols) */}
           <div className="col-span-4 space-y-4 pr-6">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-11 h-11 rounded-full overflow-hidden border border-amber-300/40">
+              <div className="relative w-11 h-11 shrink-0 transition-transform duration-200 group-hover:scale-105">
                 <Image
                   src={getAssetPath("/logo/logo-emblem.png")}
                   alt="Sri Penusila Logo"
                   fill
                   sizes="44px"
-                  className="object-contain"
+                  className="object-contain filter drop-shadow-xs"
                 />
               </div>
               <div>
@@ -212,13 +212,13 @@ export default function Footer() {
           {/* Brand header */}
           <div className="space-y-3 text-center sm:text-left">
             <Link href="/" className="inline-flex items-center gap-2.5">
-              <div className="relative w-9 h-9 rounded-full overflow-hidden border border-amber-300/40">
+              <div className="relative w-10 h-10 shrink-0">
                 <Image
                   src={getAssetPath("/logo/logo-emblem.png")}
                   alt="Sri Penusila Logo"
                   fill
-                  sizes="36px"
-                  className="object-contain"
+                  sizes="40px"
+                  className="object-contain filter drop-shadow-xs"
                 />
               </div>
               <div>
