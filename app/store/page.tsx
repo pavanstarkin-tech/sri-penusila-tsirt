@@ -95,9 +95,8 @@ function StoreContent() {
       list.sort((a, b) => b.price - a.price);
     } else if (sortBy === "rating") {
       list.sort((a, b) => b.rating - a.rating);
-    } else {
-      list.sort((a, b) => (b.isPopular ? 1 : 0) - (a.isPopular ? 1 : 0));
     }
+    // Default maintains the randomized mixed product showcase
     return list;
   }, [filteredProducts, sortBy]);
 
