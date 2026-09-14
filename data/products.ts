@@ -105,39 +105,6 @@ export const products: Product[] = [
     designStyle: "Graphic"
   },
   {
-    id: "sports-team-squad",
-    name: "Champions Team & Sports Tee",
-    category: "Team & Group",
-    categorySlug: "team",
-    price: 429,
-    originalPrice: 649,
-    image: "/tshirts/6.png",
-    colors: ["#1E3A8A", "#0B0B0B", "#FFFFFF", "#E11D2E"],
-    sizes: ["S", "M", "L", "XL", "XXL", "3XL"],
-    isPopular: true,
-    rating: 4.8,
-    reviewsCount: 56,
-    description: "Athletic squad uniform with custom jersey numbers, team name typography, and sweat-wicking breathable cotton fabric.",
-    designStyle: "Text Only"
-  },
-  {
-    id: "festival-special-vibes",
-    name: "Festival & Cultural Special Tee",
-    category: "Festival Special",
-    categorySlug: "festival",
-    price: 449,
-    originalPrice: 649,
-    image: "/tshirts/7.png",
-    colors: ["#FFFFFF", "#F59E0B", "#E11D2E", "#0B0B0B"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    isTrending: true,
-    isPopular: true,
-    rating: 4.8,
-    reviewsCount: 39,
-    description: "Festive celebration graphics and vibrant traditional motifs for Sankranti, Diwali, Dussehra, and local temple fests.",
-    designStyle: "Graphic"
-  },
-  {
     id: "traditional-comfort-kurta-01",
     name: "Classic Festive Cotton Kurta",
     category: "Kurtas",
@@ -242,23 +209,6 @@ export const products: Product[] = [
     reviewsCount: 95,
     description: "Customized birthday family & squad tees with personalized photo prints, crown emblems, and celebratory gold foil accents.",
     designStyle: "Graphic"
-  },
-  {
-    id: "new-soulmate-couples",
-    name: "Soulmate Matching Couples Tee",
-    category: "Couple T-Shirts",
-    categorySlug: "couple",
-    price: 479,
-    originalPrice: 699,
-    image: "/newcollection/6.png",
-    colors: ["#FFFFFF", "#0B0B0B", "#E11D2E"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    isTrending: true,
-    isPopular: true,
-    rating: 5.0,
-    reviewsCount: 112,
-    description: "Complementary matching pair t-shirt set for anniversaries, pre-wedding shoots, and special couple moments.",
-    designStyle: "Illustration"
   },
   {
     id: "new-athletic-sports-squad",
@@ -379,56 +329,6 @@ export const products: Product[] = [
     description: "Detailed anime artwork with intense color fidelity and fade-resistant printing on luxury cotton.",
     designStyle: "Graphic"
   },
-  {
-    id: "new-family-function-set",
-    name: "Family & Function Gathering Set",
-    category: "Team & Group",
-    categorySlug: "team",
-    price: 419,
-    originalPrice: 599,
-    image: "/newcollection/77.png",
-    colors: ["#FFFFFF", "#0B0B0B", "#F59E0B", "#1E3A8A"],
-    sizes: ["S", "M", "L", "XL", "XXL", "3XL"],
-    isPopular: true,
-    isCustom: true,
-    rating: 4.9,
-    reviewsCount: 61,
-    description: "Coordinated matching tees for family get-togethers, housewarmings, trips, and village festival gatherings.",
-    designStyle: "Graphic"
-  },
-  {
-    id: "new-mindset-motivation",
-    name: "Mindset & Grind High-Density Print",
-    category: "Motivational",
-    categorySlug: "motivational",
-    price: 499,
-    originalPrice: 699,
-    image: "/newcollection/88.png",
-    colors: ["#0B0B0B", "#FFFFFF", "#1E3A8A"],
-    sizes: ["S", "M", "L", "XL", "XXL", "3XL"],
-    isPopular: true,
-    rating: 4.8,
-    reviewsCount: 45,
-    description: "Athletic typography with motivational punchline and textured high-density screen printing.",
-    designStyle: "Text Only"
-  },
-  {
-    id: "new-bold-statement-graphic",
-    name: "Bold Statement & Quote Graphic",
-    category: "Funny & Quote",
-    categorySlug: "funny",
-    price: 479,
-    originalPrice: 699,
-    image: "/newcollection/99.png",
-    colors: ["#0B0B0B", "#FFFFFF", "#F59E0B"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    isTrending: true,
-    isPopular: true,
-    rating: 4.9,
-    reviewsCount: 59,
-    description: "Witty punchlines and artistic typography for college students and trendsetters looking to stand out.",
-    designStyle: "Graphic"
-  },
 
   // 3. Additional Essential Catalog Designs
   {
@@ -547,21 +447,6 @@ export const products: Product[] = [
     reviewsCount: 35,
     description: "Gentle typography with small red heart accent advocating for mental wellness.",
     designStyle: "Text Only"
-  },
-  {
-    id: "smile-more",
-    name: "Smile More :)",
-    category: "Funny & Quote",
-    categorySlug: "funny",
-    price: 499,
-    originalPrice: 649,
-    image: "/products/smile-more.png",
-    colors: ["#0B0B0B", "#FFFFFF", "#F59E0B"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    rating: 4.7,
-    reviewsCount: 22,
-    description: "Handwritten script with smiley face detail spreading positive energy.",
-    designStyle: "Minimal"
   },
   {
     id: "custom-design",

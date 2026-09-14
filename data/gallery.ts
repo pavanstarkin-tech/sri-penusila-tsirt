@@ -114,9 +114,9 @@ export const lookbookItems: GalleryItem[] = [
   },
   {
     id: "lookbook-6",
-    title: "Champions Team & Sports Tee",
-    category: "Sports & Squads",
-    image: "/tshirts/6.png",
-    tag: "Athletic"
+    title: "Heritage Royal Festival Kurta",
+    category: "Ethnic Celebration Wear",
+    image: "/kurthas/1.png",
+    tag: "Festive ₹299"
   }
 ];
