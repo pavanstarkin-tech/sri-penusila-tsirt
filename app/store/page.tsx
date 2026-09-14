@@ -51,13 +51,13 @@ function StoreContent() {
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
       if (selectedCategory !== "all") {
-        if (selectedCategory === "trending" && !product.isTrending) return false;
-        if (selectedCategory === "custom" && !product.isCustom) return false;
-        if (
-          selectedCategory !== "trending" &&
-          selectedCategory !== "custom" &&
-          product.categorySlug !== selectedCategory
-        ) {
+        if (selectedCategory === "new-collection") {
+          if (!product.image.includes("/newcollection/") && !product.id.startsWith("new-")) return false;
+        } else if (selectedCategory === "trending") {
+          if (!product.isTrending) return false;
+        } else if (selectedCategory === "custom") {
+          if (!product.isCustom) return false;
+        } else if (product.categorySlug !== selectedCategory) {
           return false;
         }
       }
@@ -333,30 +333,36 @@ function StoreContent() {
           </Link>
         </div>
 
-        {/* Trust features */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 text-center">
-          <div className="card-ui bg-gray-50 p-4 border border-gray-200 flex flex-col items-center gap-1.5">
-            <Truck className="w-5 h-5 text-[#E11D2E]" />
-            <h4 className="font-poppins font-bold text-xs text-[#0B0B0B]">
+        {/* Trust features — 3 in a single row on all screen sizes */}
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-6 text-center">
+          <div className="card-ui bg-gray-50 p-2.5 sm:p-4 border border-gray-200 flex flex-col items-center justify-center gap-1 sm:gap-1.5 rounded-2xl shadow-xs">
+            <Truck className="w-4 h-4 sm:w-5 sm:h-5 text-[#E11D2E]" />
+            <h4 className="font-poppins font-bold text-[10px] sm:text-xs text-[#0B0B0B] leading-tight">
               Fast Turnaround
             </h4>
-            <p className="text-[11px] text-gray-500">24–48 hour dispatch across Nellore & AP</p>
+            <p className="text-[9px] sm:text-[11px] text-gray-500 leading-tight">
+              24–48h Dispatch
+            </p>
           </div>
 
-          <div className="card-ui bg-gray-50 p-4 border border-gray-200 flex flex-col items-center gap-1.5">
-            <ShieldCheck className="w-5 h-5 text-[#E11D2E]" />
-            <h4 className="font-poppins font-bold text-xs text-[#0B0B0B]">
-              100% Bio-Washed Cotton
+          <div className="card-ui bg-gray-50 p-2.5 sm:p-4 border border-gray-200 flex flex-col items-center justify-center gap-1 sm:gap-1.5 rounded-2xl shadow-xs">
+            <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#E11D2E]" />
+            <h4 className="font-poppins font-bold text-[10px] sm:text-xs text-[#0B0B0B] leading-tight">
+              100% Bio-Washed
             </h4>
-            <p className="text-[11px] text-gray-500">Ultra-soft, shrink-resistant fabric</p>
+            <p className="text-[9px] sm:text-[11px] text-gray-500 leading-tight">
+              Ultra-Soft Fabric
+            </p>
           </div>
 
-          <div className="card-ui bg-gray-50 p-4 border border-gray-200 flex flex-col items-center gap-1.5">
-            <Headphones className="w-5 h-5 text-[#E11D2E]" />
-            <h4 className="font-poppins font-bold text-xs text-[#0B0B0B]">
-              Direct WhatsApp Support
+          <div className="card-ui bg-gray-50 p-2.5 sm:p-4 border border-gray-200 flex flex-col items-center justify-center gap-1 sm:gap-1.5 rounded-2xl shadow-xs">
+            <Headphones className="w-4 h-4 sm:w-5 sm:h-5 text-[#E11D2E]" />
+            <h4 className="font-poppins font-bold text-[10px] sm:text-xs text-[#0B0B0B] leading-tight">
+              Direct Support
             </h4>
-            <p className="text-[11px] text-gray-500">Get instant design advice & order updates</p>
+            <p className="text-[9px] sm:text-[11px] text-gray-500 leading-tight">
+              WhatsApp Updates
+            </p>
           </div>
         </div>
       </section>

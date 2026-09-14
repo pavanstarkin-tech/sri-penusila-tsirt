@@ -7,7 +7,6 @@ import {
   MapPin,
   Phone,
   Mail,
-  MessageCircle,
   Plus,
   Minus
 } from "lucide-react";
@@ -22,7 +21,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#0B0B0B] text-gray-300 pt-16 pb-12 border-t border-[#202020]">
+    <footer className="bg-[#0B0B0B] text-gray-300 pt-16 pb-28 sm:pb-16 border-t border-[#202020]">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
         {/* DESKTOP ASYMMETRIC GRID (Wider Brand Column + Hairline Dividers) */}
         <div className="hidden lg:grid grid-cols-12 gap-8 pb-14 border-b border-[#202020]">

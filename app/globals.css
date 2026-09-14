@@ -165,7 +165,7 @@ h1, h2, h3, h4, h5, h6 {
               box-shadow 420ms cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
   will-change: transform, filter, border-radius;
-  background-color: #ffffff;
+  background-color: #0B0B0B;
 }
 
 body.mobile-menu-open {
@@ -174,7 +174,7 @@ body.mobile-menu-open {
 }
 
 body.mobile-menu-open #app-root-shell {
-  transform: perspective(1000px) translateX(260px) scale(0.85) rotateY(-8deg);
+  transform: perspective(1000px) translateX(285px) scale(0.85) rotateY(-8deg);
   transform-origin: left center;
   border-radius: 20px;
   overflow: hidden;
@@ -186,17 +186,17 @@ body.mobile-menu-open #app-root-shell {
 
 @media (min-width: 640px) {
   body.mobile-menu-open #app-root-shell {
-    transform: perspective(1000px) translateX(300px) scale(0.86) rotateY(-7deg);
+    transform: perspective(1000px) translateX(340px) scale(0.86) rotateY(-7deg);
   }
 }
 
 @media (min-width: 1024px) {
   body.mobile-menu-open #app-root-shell {
-    transform: none !important;
-    filter: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    pointer-events: auto !important;
+    transform: perspective(1200px) translateX(380px) scale(0.88) rotateY(-6deg);
+    transform-origin: left center;
+    border-radius: 20px;
+    box-shadow: -30px 30px 60px rgba(0, 0, 0, 0.7);
+    filter: brightness(0.7);
   }
 }
 
@@ -245,5 +245,87 @@ body.mobile-menu-open #app-root-shell {
 
 .nav-item-3d {
   animation: navItem3dIn 440ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ============================================================ */
+/* 3D PERSPECTIVE CART DRAWER SUPPRESSION & SIDEBAR ANIMATION   */
+/* ============================================================ */
+body.cart-drawer-open {
+  background-color: #0b0b0b;
+  overflow: hidden;
+}
+
+body.cart-drawer-open #app-root-shell {
+  transform: perspective(1000px) translateX(-285px) scale(0.85) rotateY(8deg);
+  transform-origin: right center;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.6);
+  filter: brightness(0.65);
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (min-width: 640px) {
+  body.cart-drawer-open #app-root-shell {
+    transform: perspective(1000px) translateX(-340px) scale(0.86) rotateY(7deg);
+  }
+}
+
+@media (min-width: 1024px) {
+  body.cart-drawer-open #app-root-shell {
+    transform: perspective(1200px) translateX(-380px) scale(0.88) rotateY(6deg);
+    transform-origin: right center;
+    border-radius: 20px;
+    box-shadow: 30px 30px 60px rgba(0, 0, 0, 0.7);
+    filter: brightness(0.7);
+  }
+}
+
+/* Cart Drawer 3D Animation (Right slide-in with 3D rotation) */
+.cart-drawer-3d-enter {
+  animation: cartDrawer3dIn 420ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.cart-drawer-3d-exit {
+  animation: cartDrawer3dOut 320ms cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+
+@keyframes cartDrawer3dIn {
+  0% {
+    opacity: 0;
+    transform: perspective(1200px) translateX(100%) rotateY(-16deg);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1200px) translateX(0) rotateY(0deg);
+  }
+}
+
+@keyframes cartDrawer3dOut {
+  0% {
+    opacity: 1;
+    transform: perspective(1200px) translateX(0) rotateY(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: perspective(1200px) translateX(100%) rotateY(-16deg);
+  }
+}
+
+/* Cart Items 3D Stagger Entrance */
+@keyframes cartItem3dIn {
+  0% {
+    opacity: 0;
+    transform: perspective(600px) translateX(28px) translateZ(-30px) rotateY(-16deg);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(600px) translateX(0) translateZ(0) rotateY(0deg);
+  }
+}
+
+.cart-item-3d {
+  animation: cartItem3dIn 440ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 

@@ -8,8 +8,8 @@ import {
   SideCustomization
 } from "./types";
 import { siteConfig, getWhatsAppLink } from "@/data/siteConfig";
+import { WhatsappIcon } from "@/components/SocialIcons";
 import {
-  MessageCircle,
   Download,
   Edit3,
   X,
@@ -166,6 +166,32 @@ Thank you!`;
             </div>
           ) : (
             <>
+              {/* 2-Step Action Notice Banner */}
+              <div className="bg-[#161616] border border-[#2E2E2E] rounded-2xl p-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-6 h-6 rounded-full bg-[#E11D2E]/20 text-[#FF4D5A] font-bold text-xs flex items-center justify-center shrink-0">
+                    1
+                  </div>
+                  <div>
+                    <span className="font-bold text-white block">Download Your Design Proof</span>
+                    <span className="text-[11px] text-gray-400">Save the official proof image to your phone or PC</span>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleDownloadPng}
+                  className={`py-2 px-3.5 rounded-xl font-poppins font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs shrink-0 ${
+                    downloaded
+                      ? "bg-emerald-600 text-white"
+                      : "bg-[#252525] hover:bg-[#333333] text-white border border-gray-600"
+                  }`}
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>{downloaded ? "Proof Downloaded ✓" : "Download PNG"}</span>
+                </button>
+              </div>
+
               {/* Rendered Preview Card Image */}
               {renderedDataUrl ? (
                 <div className="relative rounded-2xl overflow-hidden border border-[#333333] shadow-lg bg-black">
@@ -237,33 +263,35 @@ Thank you!`;
 
         {/* Modal Actions Footer */}
         {!isGenerating && (
-          <div className="p-4 sm:p-5 border-t border-[#262626] bg-[#121212] flex flex-col sm:flex-row items-center justify-end gap-3">
-            <button
-              type="button"
-              onClick={handleShareWhatsApp}
-              className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white font-poppins font-bold text-xs sm:text-sm py-3.5 px-6 rounded-xl shadow-lg transition-transform active:scale-95"
-            >
-              <MessageCircle className="w-4 h-4 fill-white" />
-              <span>Share to WhatsApp Now →</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={handleDownloadPng}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#222222] hover:bg-[#333333] text-white font-poppins font-semibold text-xs py-3.5 px-5 rounded-xl border border-gray-700 transition-colors"
-            >
-              <Download className="w-4 h-4" />
-              <span>Download PNG</span>
-            </button>
-
+          <div className="p-4 sm:p-5 border-t border-[#262626] bg-[#121212] flex flex-col sm:flex-row items-center justify-between gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 text-gray-400 hover:text-white font-poppins text-xs py-3.5 px-4 transition-colors"
+              className="w-full sm:w-auto flex items-center justify-center gap-1.5 text-gray-300 hover:text-white font-poppins font-semibold text-xs py-3 px-4 rounded-xl border border-[#333333] hover:border-gray-500 bg-[#1A1A1A] transition-colors"
             >
-              <Edit3 className="w-4 h-4" />
-              <span>Edit Design</span>
+              <Edit3 className="w-4 h-4 text-gray-400" />
+              <span>← Back to Customizer</span>
             </button>
+
+            <div className="flex flex-col sm:flex-row items-center gap-2.5 w-full sm:w-auto flex-1 sm:justify-end">
+              <button
+                type="button"
+                onClick={handleDownloadPng}
+                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#222222] hover:bg-[#333333] text-white font-poppins font-semibold text-xs py-3.5 px-5 rounded-xl border border-gray-700 transition-colors"
+              >
+                <Download className="w-4 h-4 text-amber-400" />
+                <span>{downloaded ? "Download Again (PNG)" : "Download PNG Image"}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={handleShareWhatsApp}
+                className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white font-poppins font-bold text-xs sm:text-sm py-3.5 px-6 rounded-xl shadow-lg transition-transform active:scale-95"
+              >
+                <WhatsappIcon className="w-4 h-4" />
+                <span>Send to WhatsApp Now →</span>
+              </button>
+            </div>
           </div>
         )}
       </div>

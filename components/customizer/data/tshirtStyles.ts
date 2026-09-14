@@ -9,180 +9,128 @@ export const standardColors: GarmentColor[] = [
   { id: "green", name: "Forest Green", hex: "#1E4330", textColor: "white" }
 ];
 
-export const mugColors: GarmentColor[] = [
-  { id: "white", name: "Glossy White", hex: "#FFFFFF", textColor: "black" },
-  { id: "black", name: "Midnight Black", hex: "#181818", textColor: "white" },
-  { id: "red", name: "Ruby Red", hex: "#C51322", textColor: "white" },
-  { id: "navy", name: "Cobalt Blue", hex: "#1B2A4A", textColor: "white" },
-  { id: "green", name: "Emerald Green", hex: "#1E4330", textColor: "white" }
+export const kurtaColors: GarmentColor[] = [
+  { id: "white", name: "Pure White", hex: "#FFFFFF", textColor: "black" },
+  { id: "black", name: "Jet Black", hex: "#181818", textColor: "white" },
+  { id: "saffron", name: "Saffron / Kesari", hex: "#FF7722", textColor: "white" },
+  { id: "yellow", name: "Haldi Yellow", hex: "#F59E0B", textColor: "black" },
+  { id: "navy", name: "Navy Blue", hex: "#1B2A4A", textColor: "white" },
+  { id: "red", name: "Festive Red", hex: "#C51322", textColor: "white" }
+];
+
+export const kanduvaColors: GarmentColor[] = [
+  { id: "white", name: "Zari White", hex: "#FFFFFF", textColor: "black" },
+  { id: "yellow", name: "Golden Yellow", hex: "#F59E0B", textColor: "black" },
+  { id: "saffron", name: "Sacred Saffron", hex: "#FF7722", textColor: "white" },
+  { id: "red", name: "Auspicious Red", hex: "#C51322", textColor: "white" },
+  { id: "navy", name: "Royal Navy", hex: "#1B2A4A", textColor: "white" },
+  { id: "green", name: "Vibrant Green", hex: "#1E4330", textColor: "white" }
+];
+
+export const flagColors: GarmentColor[] = [
+  { id: "white", name: "Pure White", hex: "#FFFFFF", textColor: "black" },
+  { id: "saffron", name: "Bright Saffron", hex: "#FF7722", textColor: "white" },
+  { id: "red", name: "Party / Fest Red", hex: "#C51322", textColor: "white" },
+  { id: "yellow", name: "Vibrant Yellow", hex: "#F59E0B", textColor: "black" },
+  { id: "navy", name: "Royal Blue", hex: "#1B2A4A", textColor: "white" },
+  { id: "green", name: "Emerald Green", hex: "#1E4330", textColor: "white" },
+  { id: "black", name: "Bold Black", hex: "#181818", textColor: "white" }
 ];
 
 export const tshirtStyles: Record<string, TshirtStyleConfig> = {
-  normal: {
-    id: "normal",
+  tshirt: {
+    id: "tshirt",
     category: "tshirt",
-    name: "Normal Plain T-Shirt",
+    name: "Half-Hands T-Shirt",
     tagline: "Classic Regular Fit // 100% Combed Cotton",
+    basePrice: 249,
+    description: "Everyday staple half-sleeve t-shirt with ribbed collar, tailored sleeves, and breathable 180 GSM cotton.",
+    availableSizes: ["S", "M", "L", "XL", "XXL", "3XL"],
+    colors: standardColors,
+    defaultColorId: "white",
+    frontPrintArea: {
+      x: 30,
+      y: 24,
+      width: 40,
+      height: 44
+    },
+    backPrintArea: {
+      x: 30,
+      y: 22,
+      width: 40,
+      height: 46
+    }
+  },
+
+  kurta: {
+    id: "kurta",
+    category: "kurta",
+    name: "Kurtas",
+    tagline: "Traditional Cotton Kurta // Festive, Political & Occasion",
     basePrice: 299,
-    description: "Everyday staple t-shirt with ribbed collar, tailored sleeves, and breathable 180 GSM cotton.",
+    description: "Elegant full-length cotton kurta with mandarin collar, 3-button placket, side slits, and high-definition chest/back custom printing.",
     availableSizes: ["S", "M", "L", "XL", "XXL", "3XL"],
-    colors: standardColors,
+    colors: kurtaColors,
     defaultColorId: "white",
     frontPrintArea: {
-      x: 30,
-      y: 24,
-      width: 40,
-      height: 44
-    },
-    backPrintArea: {
-      x: 30,
-      y: 22,
-      width: 40,
-      height: 46
-    }
-  },
-
-  oversized: {
-    id: "oversized",
-    category: "tshirt",
-    name: "Oversized Plain T-Shirt",
-    tagline: "Relaxed Streetwear Boxy // 240 GSM Heavyweight",
-    basePrice: 399,
-    description: "Modern street-style boxy silhouette with dropped armholes, wide torso, and substantial drape.",
-    availableSizes: ["S", "M", "L", "XL", "XXL", "3XL"],
-    colors: standardColors,
-    defaultColorId: "black",
-    frontPrintArea: {
-      x: 27,
-      y: 22,
-      width: 46,
-      height: 48
-    },
-    backPrintArea: {
-      x: 27,
-      y: 20,
-      width: 46,
-      height: 50
-    }
-  },
-
-  "drop-shoulder": {
-    id: "drop-shoulder",
-    category: "tshirt",
-    name: "Down-Shoulder T-Shirt",
-    tagline: "Low-Seam Drop Silhouette // Relaxed Urban Cut",
-    basePrice: 379,
-    description: "Tailored with sleeves originating lower on the bicep for an effortless casual, trendy streetwear hang.",
-    availableSizes: ["S", "M", "L", "XL", "XXL", "3XL"],
-    colors: standardColors,
-    defaultColorId: "white",
-    frontPrintArea: {
-      x: 28,
-      y: 22,
-      width: 44,
-      height: 48
-    },
-    backPrintArea: {
-      x: 28,
-      y: 20,
-      width: 44,
-      height: 50
-    }
-  },
-
-  "crop-top": {
-    id: "crop-top",
-    category: "tshirt",
-    name: "Half-End / Crop T-Shirt",
-    tagline: "Shortened Waist Hem // Modern Retro Summer Fit",
-    basePrice: 279,
-    description: "Shortened waistline cropped t-shirt cut above the hip, ideal for dance groups, college fests, and casual lifestyle wear.",
-    availableSizes: ["XS", "S", "M", "L", "XL"],
-    colors: standardColors,
-    defaultColorId: "white",
-    frontPrintArea: {
-      x: 28,
-      y: 24,
-      width: 44,
-      height: 38
-    },
-    backPrintArea: {
-      x: 28,
-      y: 22,
-      width: 44,
-      height: 40
-    }
-  },
-
-  "full-sleeve": {
-    id: "full-sleeve",
-    category: "tshirt",
-    name: "Full-Length / Sleeve T-Shirt",
-    tagline: "Full-Sleeve Winter Comfort // Tapered Ribbed Cuffs",
-    basePrice: 349,
-    description: "Extended long-sleeve tee with flexible wrist cuffs and double-needle hem for year-round styling.",
-    availableSizes: ["S", "M", "L", "XL", "XXL", "3XL"],
-    colors: standardColors,
-    defaultColorId: "white",
-    frontPrintArea: {
-      x: 30,
-      y: 24,
-      width: 40,
-      height: 44
-    },
-    backPrintArea: {
-      x: 30,
-      y: 22,
-      width: 40,
-      height: 46
-    }
-  },
-
-  hoodie: {
-    id: "hoodie",
-    category: "hoodie",
-    name: "Classic Fleece Hoodie",
-    tagline: "Warm Brushed Fleece // Kangaroo Pocket & Drawstrings",
-    basePrice: 699,
-    description: "Cozy 320 GSM fleece hoodie with double-lined hood, metallic aglet drawstrings, and front pouch.",
-    availableSizes: ["S", "M", "L", "XL", "XXL", "3XL"],
-    colors: standardColors,
-    defaultColorId: "black",
-    frontPrintArea: {
-      x: 28,
-      y: 26,
-      width: 44,
-      height: 34
-    },
-    backPrintArea: {
-      x: 28,
+      x: 32,
       y: 28,
-      width: 44,
-      height: 46
-    }
-  },
-
-  mug: {
-    id: "mug",
-    category: "mug",
-    name: "Custom Ceramic Mug",
-    tagline: "Glossy Ceramic // 360° Photo & Logo Wrap",
-    basePrice: 199,
-    description: "Premium microwave & dishwasher safe glossy ceramic coffee mug with ergonomic C-handle and dual-side printable surfaces.",
-    availableSizes: ["11 oz (Standard)", "15 oz (Jumbo)"],
-    colors: mugColors,
-    defaultColorId: "white",
-    frontPrintArea: {
-      x: 24,
-      y: 26,
-      width: 42,
+      width: 36,
       height: 48
     },
     backPrintArea: {
-      x: 34,
-      y: 26,
-      width: 42,
-      height: 48
+      x: 30,
+      y: 24,
+      width: 40,
+      height: 52
+    }
+  },
+
+  kanduva: {
+    id: "kanduva",
+    category: "kanduva",
+    name: "Kanduvas",
+    tagline: "Ceremonial Honour Kanduva // Golden Zari Border",
+    basePrice: 199,
+    description: "Traditional ceremonial stole for political campaigns, cultural felicitations, temple visits, and family celebrations with custom names & emblems.",
+    availableSizes: ["Standard (2.25m)", "Large (2.5m)"],
+    colors: kanduvaColors,
+    defaultColorId: "white",
+    frontPrintArea: {
+      x: 28,
+      y: 20,
+      width: 44,
+      height: 60
+    },
+    backPrintArea: {
+      x: 28,
+      y: 20,
+      width: 44,
+      height: 60
+    }
+  },
+
+  flag: {
+    id: "flag",
+    category: "flag",
+    name: "Flags",
+    tagline: "Custom Campaign & Festival Flags // Double Stitched Hem",
+    basePrice: 399,
+    description: "Premium weather-resistant fabric flag with pole sleeve, brass eyelets, and vibrant full-bleed photo & logo printing.",
+    availableSizes: ["Medium (2x3 ft)", "Standard (3x5 ft)", "Large (4x6 ft)"],
+    colors: flagColors,
+    defaultColorId: "white",
+    frontPrintArea: {
+      x: 20,
+      y: 20,
+      width: 60,
+      height: 60
+    },
+    backPrintArea: {
+      x: 20,
+      y: 20,
+      width: 60,
+      height: 60
     }
   }
 };

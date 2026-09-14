@@ -1,15 +1,17 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
-import { X, Plus, Minus, Trash2, ShoppingBag, MessageCircle, ArrowRight } from "lucide-react";
+import { X, Plus, Minus, Trash2, ShoppingBag, ArrowRight } from "lucide-react";
+import { WhatsappIcon } from "@/components/SocialIcons";
 import { useCart } from "@/context/CartContext";
 import { getAssetPath } from "@/data/siteConfig";
 
 export default function CartDrawer() {
   const [mounted, setMounted] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   const {
     cart,
@@ -26,82 +28,126 @@ export default function CartDrawer() {
     setMounted(true);
   }, []);
 
-  // Lock body scroll when cart is open
+  // Smooth 3D Close Lifecycle Handler
+  const handleClose = useCallback(() => {
+    setIsClosing(true);
+    if (typeof document !== "undefined") {
+      document.body.classList.remove("cart-drawer-open");
+    }
+    setTimeout(() => {
+      setIsCartOpen(false);
+      setIsClosing(false);
+    }, 340);
+  }, [setIsCartOpen]);
+
+  // Manage 3D body suppression class
   useEffect(() => {
-    if (isCartOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    if (isCartOpen && !isClosing) {
+      document.body.classList.add("cart-drawer-open");
+    } else if (!isCartOpen) {
+      document.body.classList.remove("cart-drawer-open");
     }
     return () => {
-      document.body.style.overflow = "";
+      if (typeof document !== "undefined") {
+        document.body.classList.remove("cart-drawer-open");
+      }
     };
-  }, [isCartOpen]);
+  }, [isCartOpen, isClosing]);
 
-  if (!isCartOpen || !mounted) return null;
+  // Handle ESC key to close
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isCartOpen) {
+        handleClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isCartOpen, handleClose]);
+
+  if (!isCartOpen && !isClosing) return null;
+  if (!mounted) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-[999] overflow-hidden flex justify-end animate-in fade-in duration-200">
-      {/* Backdrop */}
+    <div className="fixed inset-0 z-[999] overflow-hidden flex justify-end">
+      {/* 3D Backdrop overlay */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
-        onClick={() => setIsCartOpen(false)}
+        className={`fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity duration-300 ${
+          isClosing ? "opacity-0" : "opacity-100"
+        }`}
+        onClick={handleClose}
       />
 
-      <div className="relative w-full max-w-md h-full bg-white shadow-2xl flex flex-col z-10 animate-in slide-in-from-right duration-250">
+      {/* 3D Perspective Cart Sidebar */}
+      <div
+        className={`relative w-[285px] sm:w-[340px] lg:w-[380px] max-w-[85vw] h-full bg-[#0E0E0E] text-white shadow-2xl flex flex-col z-10 border-l border-[#222222] overflow-hidden ${
+          isClosing ? "cart-drawer-3d-exit" : "cart-drawer-3d-enter"
+        }`}
+      >
         {/* Cart Header */}
-        <div className="p-4 sm:p-5 border-b border-gray-100 flex items-center justify-between bg-gray-50 shrink-0">
-          <div className="flex items-center gap-2">
-            <ShoppingBag className="w-5 h-5 text-[#E11D2E]" />
-            <h2 className="font-poppins font-bold text-base text-[#0B0B0B]">
-              Your Cart ({cartCount})
-            </h2>
+        <div className="p-3.5 sm:p-4 border-b border-[#222222] flex items-center justify-between bg-[#141414] shrink-0 gap-2">
+          <div className="flex items-center gap-2 min-w-0 pr-1">
+            <div className="w-8 h-8 rounded-lg bg-[#E11D2E]/15 border border-[#E11D2E]/30 flex items-center justify-center shrink-0">
+              <ShoppingBag className="w-4 h-4 text-[#FF4D5A]" />
+            </div>
+            <div className="min-w-0 truncate">
+              <h2 className="font-poppins font-bold text-xs sm:text-sm text-white leading-tight truncate">
+                Your Shopping Bag ({cartCount})
+              </h2>
+              <span className="text-[8px] sm:text-[9px] text-gray-400 font-mono tracking-wide truncate block">
+                Sri Penusila Rapur Studio
+              </span>
+            </div>
           </div>
           <button
             type="button"
-            onClick={() => setIsCartOpen(false)}
-            className="w-8 h-8 rounded-full bg-gray-200/70 hover:bg-gray-200 flex items-center justify-center text-gray-600 transition-colors"
+            onClick={handleClose}
+            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center text-gray-400 hover:text-white transition-colors shrink-0"
             aria-label="Close cart"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Cart Items List */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 divide-y divide-gray-100">
+        {/* Cart Items List with Staggered 3D Cascade */}
+        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3.5 divide-y divide-[#1F1F1F]">
           {cart.length === 0 ? (
             <div className="text-center py-16">
-              <div className="w-16 h-16 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center mx-auto mb-4">
-                <ShoppingBag className="w-8 h-8" />
+              <div className="w-16 h-16 rounded-full bg-[#181818] text-gray-400 flex items-center justify-center mx-auto mb-4 border border-[#262626]">
+                <ShoppingBag className="w-8 h-8 text-[#FF4D5A]" />
               </div>
-              <h3 className="font-poppins font-semibold text-gray-800 text-lg mb-1">
+              <h3 className="font-poppins font-semibold text-white text-lg mb-1">
                 Your cart is empty
               </h3>
-              <p className="text-xs text-gray-500 max-w-xs mx-auto mb-6">
-                Explore our catalog or create your custom T-shirt today!
+              <p className="text-xs text-gray-400 max-w-xs mx-auto mb-6">
+                Explore our trending catalog or create your custom T-shirt today!
               </p>
               <div className="flex flex-col gap-2 max-w-xs mx-auto">
                 <Link
                   href="/store"
-                  onClick={() => setIsCartOpen(false)}
+                  onClick={handleClose}
                   className="w-full bg-[#E11D2E] hover:bg-[#C51322] text-white font-poppins font-semibold text-xs py-3 rounded-xl shadow-sm transition-colors text-center"
                 >
-                  Browse Store
+                  Browse Store Catalog
                 </Link>
                 <Link
                   href="/custom-printing"
-                  onClick={() => setIsCartOpen(false)}
-                  className="w-full bg-[#0B0B0B] hover:bg-black text-white font-poppins font-semibold text-xs py-3 rounded-xl transition-colors text-center"
+                  onClick={handleClose}
+                  className="w-full bg-[#181818] hover:bg-[#222222] text-white font-poppins font-semibold text-xs py-3 rounded-xl border border-gray-700 transition-colors text-center"
                 >
                   Custom Printing Studio
                 </Link>
               </div>
             </div>
           ) : (
-            cart.map((item) => (
-              <div key={item.id} className="pt-4 first:pt-0 flex gap-3.5">
+            cart.map((item, idx) => (
+              <div
+                key={item.id}
+                style={{ animationDelay: `${idx * 45 + 60}ms` }}
+                className="cart-item-3d pt-3.5 first:pt-0 flex gap-3.5 group bg-[#131313] p-3 rounded-2xl border border-[#222222]"
+              >
                 {/* Product Thumbnail */}
-                <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-gray-50 border border-gray-200 shrink-0 p-1">
+                <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-[#1A1A1A] border border-[#2B2B2B] shrink-0 p-1">
                   <Image
                     src={getAssetPath(item.image)}
                     alt={item.name}
@@ -115,14 +161,14 @@ export default function CartDrawer() {
                 <div className="flex-1 flex flex-col justify-between">
                   <div className="flex justify-between items-start gap-2">
                     <div>
-                      <h4 className="font-poppins font-bold text-xs sm:text-sm text-[#0B0B0B] leading-tight line-clamp-1">
+                      <h4 className="font-poppins font-bold text-xs sm:text-sm text-white leading-tight line-clamp-1">
                         {item.name}
                       </h4>
-                      <div className="text-[11px] text-gray-500 font-mono mt-0.5">
+                      <div className="text-[11px] text-gray-400 font-mono mt-0.5">
                         {item.size} • {item.color}
                         {item.isCustom && (
-                          <span className="ml-1 text-[10px] text-[#E11D2E] font-bold">
-                            (Custom)
+                          <span className="ml-1 text-[10px] text-[#FF4D5A] font-bold">
+                            (Custom Print)
                           </span>
                         )}
                       </div>
@@ -131,7 +177,7 @@ export default function CartDrawer() {
                     <button
                       type="button"
                       onClick={() => removeFromCart(item.id)}
-                      className="text-gray-400 hover:text-red-600 p-1 transition-colors"
+                      className="text-gray-400 hover:text-[#FF4D5A] p-1 transition-colors"
                       aria-label="Remove item"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -140,22 +186,22 @@ export default function CartDrawer() {
 
                   <div className="flex justify-between items-center mt-2">
                     {/* Quantity Control */}
-                    <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden bg-white">
+                    <div className="flex items-center border border-[#333333] rounded-lg overflow-hidden bg-[#1A1A1A]">
                       <button
                         type="button"
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="px-2 py-1 text-gray-600 hover:bg-gray-100 transition-colors"
+                        className="px-2 py-1 text-gray-300 hover:bg-[#282828] transition-colors"
                         aria-label="Decrease quantity"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
-                      <span className="px-2.5 font-mono text-xs font-bold text-[#0B0B0B]">
+                      <span className="px-2.5 font-mono text-xs font-bold text-white">
                         {item.quantity}
                       </span>
                       <button
                         type="button"
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="px-2 py-1 text-gray-600 hover:bg-gray-100 transition-colors"
+                        className="px-2 py-1 text-gray-300 hover:bg-[#282828] transition-colors"
                         aria-label="Increase quantity"
                       >
                         <Plus className="w-3 h-3" />
@@ -163,7 +209,7 @@ export default function CartDrawer() {
                     </div>
 
                     {/* Price */}
-                    <div className="font-poppins font-bold text-sm text-[#0B0B0B]">
+                    <div className="font-poppins font-bold text-sm text-[#FF4D5A]">
                       ₹{item.price * item.quantity}
                     </div>
                   </div>
@@ -175,39 +221,42 @@ export default function CartDrawer() {
 
         {/* Cart Footer */}
         {cart.length > 0 && (
-          <div className="p-4 sm:p-5 border-t border-gray-200 bg-gray-50 space-y-3 shrink-0 pb-[max(1rem,env(safe-area-inset-bottom,1rem))]">
+          <div className="p-4 sm:p-5 border-t border-[#222222] bg-[#121212] space-y-3 shrink-0 pb-[max(1rem,env(safe-area-inset-bottom,1rem))]">
             <div className="flex justify-between items-center text-sm">
-              <span className="text-gray-600">Subtotal</span>
-              <span className="font-poppins font-bold text-base text-[#0B0B0B]">
+              <span className="text-gray-400">Order Subtotal</span>
+              <span className="font-poppins font-bold text-base text-white">
                 ₹{cartSubtotal}
               </span>
             </div>
-            <div className="flex justify-between items-center text-xs text-gray-500 pb-1">
+            <div className="flex justify-between items-center text-xs text-gray-400 pb-1">
               <span>Estimated Delivery</span>
-              <span className="text-emerald-600 font-medium">Standard / Local Delivery</span>
+              <span className="text-emerald-400 font-medium">Standard / Local Rapur Delivery</span>
             </div>
 
             {/* Checkout via WhatsApp Button */}
             <button
               type="button"
-              onClick={checkoutViaWhatsApp}
-              className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white font-poppins font-bold text-sm py-3.5 rounded-xl shadow-md transition-all active:scale-95"
+              onClick={() => {
+                checkoutViaWhatsApp();
+                handleClose();
+              }}
+              className="w-full flex items-center justify-center gap-1.5 sm:gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white font-poppins font-bold text-xs sm:text-sm py-3 px-2.5 sm:px-3 rounded-xl shadow-lg transition-transform active:scale-95 text-center min-h-[44px]"
             >
-              <MessageCircle className="w-5 h-5 fill-white" />
-              <span>Order / Enquire via WhatsApp</span>
+              <WhatsappIcon className="w-4 h-4 shrink-0" />
+              <span className="whitespace-nowrap">Checkout on WhatsApp →</span>
             </button>
 
-            <div className="text-center text-[11px] text-gray-500">
-              Direct chat with our printing team in Rapur for instant confirmation.
+            <div className="text-center text-[11px] text-gray-400">
+              Direct chat with Sri Penusila team in Rapur for instant order confirmation.
             </div>
 
-            <div className="flex justify-center gap-4 text-xs font-semibold text-gray-600 pt-1">
+            <div className="flex justify-center gap-4 text-xs font-semibold text-gray-400 pt-1">
               <button
                 type="button"
-                onClick={() => setIsCartOpen(false)}
-                className="hover:text-[#E11D2E] underline underline-offset-2"
+                onClick={handleClose}
+                className="hover:text-[#FF4D5A] underline underline-offset-2 transition-colors"
               >
-                Continue Browsing
+                ← Continue Browsing
               </button>
             </div>
           </div>

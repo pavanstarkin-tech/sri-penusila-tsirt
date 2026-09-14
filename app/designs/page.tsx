@@ -71,13 +71,13 @@ function DesignsContent() {
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
       if (activeTab !== "all") {
-        if (activeTab === "trending" && !product.isTrending) return false;
-        if (activeTab === "custom" && !product.isCustom) return false;
-        if (
-          activeTab !== "trending" &&
-          activeTab !== "custom" &&
-          product.categorySlug !== activeTab
-        ) {
+        if (activeTab === "new-collection") {
+          if (!product.image.includes("/newcollection/") && !product.id.startsWith("new-")) return false;
+        } else if (activeTab === "trending") {
+          if (!product.isTrending) return false;
+        } else if (activeTab === "custom") {
+          if (!product.isCustom) return false;
+        } else if (product.categorySlug !== activeTab) {
           return false;
         }
       }

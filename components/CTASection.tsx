@@ -2,7 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import { MessageCircle, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
+import { WhatsappIcon } from "@/components/SocialIcons";
 import { siteConfig, getWhatsAppLink, getTelLink } from "@/data/siteConfig";
 
 interface CTASectionProps {
@@ -57,7 +58,7 @@ export default function CTASection({
               rel="noopener noreferrer"
               className="flex items-center gap-2 bg-[#E11D2E] hover:bg-[#C51322] text-white font-poppins font-semibold text-xs sm:text-sm px-5 py-3 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5 active:scale-95"
             >
-              <MessageCircle className="w-4 h-4 fill-white" />
+              <WhatsappIcon className="w-4 h-4" />
               <span>WhatsApp Us</span>
             </Link>
 

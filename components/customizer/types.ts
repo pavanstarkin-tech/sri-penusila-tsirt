@@ -1,13 +1,10 @@
 export type TshirtStyleId =
-  | "normal"
-  | "oversized"
-  | "drop-shoulder"
-  | "crop-top"
-  | "full-sleeve"
-  | "hoodie"
-  | "mug";
+  | "tshirt"
+  | "kurta"
+  | "kanduva"
+  | "flag";
 
-export type GarmentCategory = "tshirt" | "hoodie" | "mug";
+export type GarmentCategory = "tshirt" | "kurta" | "kanduva" | "flag";
 
 export type GarmentSide = "front" | "back";
 

@@ -9,7 +9,6 @@ import {
   MapPin,
   Phone,
   Mail,
-  MessageCircle,
   ArrowRight,
   ShieldCheck,
   Star,
@@ -25,6 +24,7 @@ import {
   Minus,
   ArrowUpRight
 } from "lucide-react";
+import { WhatsappIcon } from "@/components/SocialIcons";
 import SectionHeading from "@/components/SectionHeading";
 import ProductCard from "@/components/ProductCard";
 import CTASection from "@/components/CTASection";
@@ -36,20 +36,31 @@ import { testimonials } from "@/data/testimonials";
 import { siteConfig, getWhatsAppLink, getTelLink, getAssetPath } from "@/data/siteConfig";
 
 export default function HomePage() {
-  const [activeCategory, setActiveCategory] = useState("trending");
+  const [activeCategory, setActiveCategory] = useState("new-collection");
   const [activeService, setActiveService] = useState<string | null>("photos");
   const [testimonialIdx, setTestimonialIdx] = useState(0);
 
   // Category products (matching active pill filter)
   const categoryProducts = products.filter((p) => {
-    if (activeCategory === "trending") return p.isTrending || p.isPopular;
-    if (activeCategory === "events") return p.categorySlug === "team" || p.categorySlug === "college" || p.categorySlug === "festival";
+    if (activeCategory === "new-collection") {
+      return p.image.includes("/newcollection/") || p.id.startsWith("new-");
+    }
+    if (activeCategory === "trending") {
+      return p.isTrending || p.isPopular;
+    }
+    if (activeCategory === "events") {
+      return (
+        p.categorySlug === "team" ||
+        p.categorySlug === "college" ||
+        p.categorySlug === "festival"
+      );
+    }
     return p.categorySlug === activeCategory;
   });
 
   const displayProducts = categoryProducts.length > 0
-    ? categoryProducts.slice(0, 8)
-    : products.slice(0, 8);
+    ? categoryProducts.slice(0, 16)
+    : products.slice(0, 16);
 
   const activeTestimonial = testimonials[testimonialIdx] || testimonials[0];
 
@@ -99,7 +110,7 @@ export default function HomePage() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 bg-[#171717] hover:bg-[#222222] text-white border border-[#333333] hover:border-gray-500 font-poppins font-semibold text-sm px-6 py-3.5 rounded-xl transition-all min-h-[48px]"
                 >
-                  <MessageCircle className="w-4 h-4 text-[#25D366] fill-[#25D366]" />
+                  <WhatsappIcon className="w-4 h-4" />
                   <span>WhatsApp Us</span>
                 </Link>
               </div>

@@ -1,35 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
   Eye,
   Rocket,
   Diamond,
-  Users,
   Shirt,
-  Star,
-  MapPin,
   Heart,
-  Play,
   ArrowRight,
   CheckCircle2,
   Check,
-  Award,
-  Sparkles,
-  Tag,
-  Clock,
-  ShieldCheck,
-  Plus
+  Sparkles
 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import CTASection from "@/components/CTASection";
 import { siteConfig, getAssetPath } from "@/data/siteConfig";
 
 export default function AboutPage() {
-  const [videoPlaying, setVideoPlaying] = useState(false);
-
   return (
     <div className="space-y-16 sm:space-y-24">
       {/* ============================================================ */}
@@ -72,7 +61,7 @@ export default function AboutPage() {
       </section>
 
       {/* ============================================================ */}
-      {/* 2. OUR STORY SECTION (Narrative + Video Card + Quote Card)    */}
+      {/* 2. OUR STORY SECTION (Narrative + Visual Showcase + Quote)    */}
       {/* ============================================================ */}
       <section className="max-w-[1280px] mx-auto px-4 sm:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
@@ -105,27 +94,17 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Center Video Card */}
-          <div className="lg:col-span-5 relative card-feature overflow-hidden border border-[#E7E7E7] bg-black min-h-[280px] group shadow-sm">
+          {/* Center Visual Feature Card (assets/6.png) */}
+          <div className="lg:col-span-5 relative card-feature overflow-hidden border border-[#262626] bg-[#0E0E0E] min-h-[300px] rounded-2xl group shadow-sm flex items-center justify-center p-3 sm:p-4">
             <Image
-              src={getAssetPath("/about/video-story-thumb.png")}
-              alt="Watch Our Story Video Thumbnail"
+              src={getAssetPath("/assets/6.png")}
+              alt="Sri Penusila Studio Collection"
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
-              className="object-cover group-hover:scale-105 transition-transform duration-700"
+              className="object-contain p-2 group-hover:scale-105 transition-transform duration-700"
             />
-            {/* Play Button Overlay */}
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] flex items-center justify-center">
-              <button
-                onClick={() => setVideoPlaying(true)}
-                className="w-16 h-16 rounded-full bg-white text-[#E11D2E] flex items-center justify-center shadow-2xl hover:scale-110 transition-transform group-hover:bg-[#E11D2E] group-hover:text-white"
-                aria-label="Play story video"
-              >
-                <Play className="w-6 h-6 fill-current ml-1" />
-              </button>
-            </div>
-            <div className="absolute bottom-4 left-4 text-white text-xs font-semibold bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
-              Watch Our Studio Journey (1:24)
+            <div className="absolute bottom-3 left-3 bg-[#0B0B0B]/85 backdrop-blur-md text-white text-[11px] font-mono font-semibold px-3 py-1.5 rounded-lg border border-white/10 shadow-md">
+              Sri Penusila Studio Heritage
             </div>
           </div>
 
@@ -328,17 +307,17 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Center 3 T-Shirts Photo */}
+          {/* Center 3 T-Shirts Photo (assets/3.png) */}
           <div className="lg:col-span-5 flex justify-center">
-            <div className="relative w-full max-w-[400px] aspect-[4/3] card-product overflow-hidden border border-[#E7E7E7] bg-[#F7F7F7] shadow-md group">
+            <div className="relative w-full max-w-[420px] aspect-[4/3] card-product overflow-hidden border border-[#E7E7E7] bg-[#F7F7F7] shadow-md group rounded-2xl p-2 flex items-center justify-center">
               <Image
-                src={getAssetPath("/about/why-choose-tshirts.png")}
-                alt="Sri Penusila Printed T-Shirts"
+                src={getAssetPath("/assets/3.png")}
+                alt="Sri Penusila Printed T-Shirts Showcase"
                 fill
-                sizes="400px"
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                sizes="420px"
+                className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute top-3 right-3 bg-[#0B0B0B]/80 backdrop-blur-md px-2.5 py-1 rounded-md text-white text-[10px] font-mono border border-white/10">
+              <div className="absolute top-3 right-3 bg-[#0B0B0B]/80 backdrop-blur-md px-2.5 py-1 rounded-md text-white text-[10px] font-mono border border-white/10 shadow-sm">
                 100% Quality Inspected
               </div>
             </div>
@@ -393,34 +372,6 @@ export default function AboutPage() {
           subtitle="Custom T-Shirts for Individuals, Teams, Events & Businesses."
         />
       </div>
-
-      {/* Video Modal if clicked */}
-      {videoPlaying && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs">
-          <div className="bg-[#111111] border border-[#333333] rounded-2xl max-w-lg w-full p-6 text-white text-center space-y-4">
-            <h3 className="font-poppins font-bold text-lg text-white">
-              Watch Our Story
-            </h3>
-            <p className="text-xs text-gray-400">
-              Welcome to Sri Penusila T-Shirt Printing Centre in Penubarthi, Rapur! We print premium custom t-shirts with love, precision, and the finest cotton fabrics.
-            </p>
-            <div className="relative aspect-video rounded-xl overflow-hidden border border-[#333333]">
-              <Image
-                src={getAssetPath("/about/video-story-thumb.png")}
-                alt="Story video"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <button
-              onClick={() => setVideoPlaying(false)}
-              className="bg-[#E11D2E] hover:bg-[#C51322] text-white text-xs font-semibold px-6 py-2 rounded-xl"
-            >
-              Close Video
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

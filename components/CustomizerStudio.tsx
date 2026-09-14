@@ -22,6 +22,7 @@ import MobileToolSheet from "./customizer/MobileToolSheet";
 import { QuotationExportCard } from "./customizer/QuotationExportCard";
 import QuotationModal from "./customizer/QuotationModal";
 import { useCart } from "@/context/CartContext";
+import { WhatsappIcon } from "@/components/SocialIcons";
 import {
   Sparkles,
   Eye,
@@ -37,7 +38,8 @@ import {
   Upload,
   Type,
   Layers,
-  ArrowRight
+  ArrowRight,
+  Download
 } from "lucide-react";
 
 interface CustomizerStudioProps {
@@ -49,8 +51,8 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
 
   // 1. CONFIGURATION & STATE
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
-  const [selectedStyleId, setSelectedStyleId] = useState<TshirtStyleId>("normal");
-  const activeStyle = tshirtStyles[selectedStyleId] || tshirtStyles.normal;
+  const [selectedStyleId, setSelectedStyleId] = useState<TshirtStyleId>("tshirt");
+  const activeStyle = tshirtStyles[selectedStyleId] || tshirtStyles.tshirt;
 
   const [selectedColorId, setSelectedColorId] = useState<string>(activeStyle.defaultColorId);
   const activeColor = activeStyle.colors.find((c) => c.id === selectedColorId) || activeStyle.colors[0];
@@ -183,6 +185,35 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
     if (confirm(`Clear all custom layers on the ${activeSide} side?`)) {
       updateActiveLayers(() => []);
       setSelectedLayerId(null);
+    }
+  };
+
+  // Step Progression
+  const handleNextStep = () => {
+    if (currentStep === 1) {
+      setCurrentStep(2);
+      setMobileSheet("color");
+    } else if (currentStep === 2) {
+      setCurrentStep(3);
+      setMobileSheet("upload");
+    } else if (currentStep === 3) {
+      setCurrentStep(4);
+      handleGenerateQuotation();
+    } else if (currentStep === 4) {
+      handleGenerateQuotation();
+    }
+  };
+
+  const handlePrevStep = () => {
+    if (currentStep === 4) {
+      setCurrentStep(3);
+      setIsQuotationOpen(false);
+    } else if (currentStep === 3) {
+      setCurrentStep(2);
+      setMobileSheet("color");
+    } else if (currentStep === 2) {
+      setCurrentStep(1);
+      setMobileSheet("style");
     }
   };
 
@@ -436,14 +467,26 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
               </div>
             </div>
 
-            <button
-              type="button"
-              onClick={handleGenerateQuotation}
-              className="w-full flex items-center justify-center gap-2 bg-[#E11D2E] hover:bg-[#C51322] text-white font-poppins font-bold text-xs py-3 rounded-xl shadow-lg transition-transform active:scale-95"
-            >
-              <FileText className="w-4 h-4" />
-              <span>Get WhatsApp Quotation →</span>
-            </button>
+            {/* Desktop Direct Actions: Download Proof & WhatsApp */}
+            <div className="grid grid-cols-2 gap-2 pt-1">
+              <button
+                type="button"
+                onClick={handleGenerateQuotation}
+                className="w-full py-2.5 bg-[#222222] hover:bg-[#2A2A2A] text-white font-poppins font-bold text-xs rounded-xl border border-gray-700 flex items-center justify-center gap-1.5 active:scale-95 transition-all"
+              >
+                <Download className="w-3.5 h-3.5 text-amber-400" />
+                <span>Download Proof</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={handleGenerateQuotation}
+                className="w-full py-2.5 bg-[#25D366] hover:bg-[#1EBE5D] text-white font-poppins font-bold text-xs rounded-xl shadow-md flex items-center justify-center gap-1.5 active:scale-95 transition-all"
+              >
+                <WhatsappIcon className="w-3.5 h-3.5" />
+                <span>WhatsApp Quote</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -743,14 +786,56 @@ export default function CustomizerStudio({ mode = "full" }: CustomizerStudioProp
               </button>
             </div>
 
-            <button
-              type="button"
-              onClick={handleGenerateQuotation}
-              className="w-full py-3 bg-[#E11D2E] hover:bg-[#C51322] text-white font-poppins font-bold text-xs rounded-xl shadow-lg flex items-center justify-center gap-2 transition-transform active:scale-95"
-            >
-              <FileText className="w-4 h-4" />
-              <span>Get WhatsApp Quotation Proof (₹{estimatedTotalPrice}) →</span>
-            </button>
+            {/* Step Navigation Controls (Back / Next) */}
+            <div className="flex items-center justify-between gap-2 pt-2 border-t border-[#222222]">
+              <button
+                type="button"
+                onClick={handlePrevStep}
+                disabled={currentStep === 1}
+                className={`flex-1 py-2.5 px-3 rounded-xl border font-poppins font-bold text-xs flex items-center justify-center gap-1 transition-all ${
+                  currentStep === 1
+                    ? "bg-[#141414] border-[#222222] text-gray-600 cursor-not-allowed opacity-50"
+                    : "bg-[#1C1C1C] hover:bg-[#252525] border-[#333333] text-white active:scale-95"
+                }`}
+              >
+                <ChevronLeft className="w-4 h-4" />
+                <span>Back</span>
+              </button>
+
+              <div className="text-[10px] font-mono text-gray-400 font-bold px-2 py-1 bg-[#141414] rounded-lg border border-[#262626]">
+                Step {currentStep}/4
+              </div>
+
+              <button
+                type="button"
+                onClick={handleNextStep}
+                className="flex-1 py-2.5 px-3 rounded-xl bg-[#E11D2E] hover:bg-[#C51322] text-white font-poppins font-bold text-xs flex items-center justify-center gap-1 shadow-md active:scale-95 transition-all"
+              >
+                <span>{currentStep === 3 ? "Review & Quote" : currentStep === 4 ? "Open Proof" : "Next Step"}</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Direct Action Buttons: Download Proof & WhatsApp Quote */}
+            <div className="grid grid-cols-2 gap-2 pt-0.5">
+              <button
+                type="button"
+                onClick={handleGenerateQuotation}
+                className="w-full py-2.5 bg-[#222222] hover:bg-[#2A2A2A] text-white font-poppins font-bold text-[11px] rounded-xl border border-gray-700 flex items-center justify-center gap-1.5 active:scale-95 transition-all"
+              >
+                <Download className="w-3.5 h-3.5 text-amber-400" />
+                <span>Download Proof</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={handleGenerateQuotation}
+                className="w-full py-2.5 bg-[#25D366] hover:bg-[#1EBE5D] text-white font-poppins font-bold text-[11px] rounded-xl shadow-md flex items-center justify-center gap-1.5 active:scale-95 transition-all"
+              >
+                <WhatsappIcon className="w-3.5 h-3.5" />
+                <span>WhatsApp Quote</span>
+              </button>
+            </div>
           </div>
         </div>
 

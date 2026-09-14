@@ -9,11 +9,11 @@ import {
   Sparkles,
   ShoppingBag,
   ArrowRight,
-  MessageCircle,
   Phone,
   ShieldCheck,
   CheckCircle2
 } from "lucide-react";
+import { WhatsappIcon } from "@/components/SocialIcons";
 import SectionHeading from "@/components/SectionHeading";
 import CustomizerStudio from "@/components/CustomizerStudio";
 import HowItWorks from "@/components/HowItWorks";
@@ -195,7 +195,7 @@ function CustomPrintingContent() {
               rel="noopener noreferrer"
               className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white font-poppins font-semibold text-xs sm:text-sm px-6 py-3.5 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5 active:scale-95"
             >
-              <MessageCircle className="w-4 h-4 fill-white" />
+              <WhatsappIcon className="w-4 h-4" />
               <span>WhatsApp Design Team</span>
             </Link>
 

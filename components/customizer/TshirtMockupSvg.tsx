@@ -44,21 +44,28 @@ export default function TshirtMockupSvg({
           <stop offset="100%" stopColor="#000000" stopOpacity="0.18" />
         </linearGradient>
 
-        <linearGradient id="mug-specular" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#000000" stopOpacity="0.3" />
-          <stop offset="20%" stopColor="#ffffff" stopOpacity="0.45" />
-          <stop offset="35%" stopColor="#ffffff" stopOpacity="0.08" />
-          <stop offset="80%" stopColor="#000000" stopOpacity="0.05" />
-          <stop offset="100%" stopColor="#000000" stopOpacity="0.35" />
+        <linearGradient id="gold-zari-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#D97706" />
+          <stop offset="30%" stopColor="#FBBF24" />
+          <stop offset="60%" stopColor="#F59E0B" />
+          <stop offset="100%" stopColor="#B45309" />
+        </linearGradient>
+
+        <linearGradient id="flag-wave" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#000000" stopOpacity="0.15" />
+          <stop offset="25%" stopColor="#ffffff" stopOpacity="0.2" />
+          <stop offset="50%" stopColor="#000000" stopOpacity="0.12" />
+          <stop offset="75%" stopColor="#ffffff" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="#000000" stopOpacity="0.22" />
         </linearGradient>
       </defs>
 
       {/* ============================================================ */}
-      {/* 1. NORMAL PLAIN T-SHIRT (Classic Regular Fit Catalog Cut)    */}
+      {/* 1. HALF-HANDS T-SHIRT (Single Plain Half Sleeve T-Shirt)     */}
       {/* ============================================================ */}
-      {styleId === "normal" && (
-        <g id="normal-tshirt">
-          {/* Subtle Studio Drop Shadow behind the garment */}
+      {styleId === "tshirt" && (
+        <g id="tshirt-garment">
+          {/* Subtle Studio Drop Shadow */}
           <path
             d="M 180 75 L 105 110 L 70 195 L 120 220 L 152 180 L 152 435 Q 250 444 348 435 L 348 180 L 380 220 L 430 195 L 395 110 L 320 75 Z"
             fill="#000000"
@@ -98,611 +105,273 @@ export default function TshirtMockupSvg({
             strokeLinejoin="round"
           />
 
-          {/* 3D Studio Lighting Overlays */}
-          <path
-            d="M 180 75 L 105 110 L 70 195 L 120 220 L 152 180 L 152 435 Q 250 444 348 435 L 348 180 L 380 220 L 430 195 L 395 110 L 320 75 Z"
-            fill={`url(#studio-light-${styleId})`}
-          />
-          <path
-            d="M 180 75 L 105 110 L 70 195 L 120 220 L 152 180 L 152 435 Q 250 444 348 435 L 348 180 L 380 220 L 430 195 L 395 110 L 320 75 Z"
-            fill={`url(#vertical-shade-${styleId})`}
-          />
-
-          {/* Armhole Seam Lines */}
-          <path d="M 105 110 C 122 135, 140 155, 152 180" fill="none" stroke="#000000" strokeOpacity="0.22" strokeWidth="1.2" strokeDasharray="3,1.5" />
-          <path d="M 395 110 C 378 135, 360 155, 348 180" fill="none" stroke="#000000" strokeOpacity="0.22" strokeWidth="1.2" strokeDasharray="3,1.5" />
-
-          {/* Sleeve Cuff Hem Stitch */}
-          <path d="M 75 198 L 118 218" fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth="1.2" strokeDasharray="3,1.5" />
-          <path d="M 425 198 L 382 218" fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth="1.2" strokeDasharray="3,1.5" />
-
-          {/* Bottom Hem Stitch Line */}
-          <path d="M 152 427 Q 250 436 348 427" fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth="1.2" strokeDasharray="4,2" />
-
-          {/* Soft Fabric Folds radiating from underarm */}
-          <path d="M 152 185 Q 170 205, 185 225" fill="none" stroke="#000000" strokeOpacity="0.12" strokeWidth="1.5" strokeLinecap="round" />
-          <path d="M 348 185 Q 330 205, 315 225" fill="none" stroke="#000000" strokeOpacity="0.12" strokeWidth="1.5" strokeLinecap="round" />
-
-          {/* Collar */}
-          {side === "front" ? (
-            <g id="normal-front-collar">
-              <path
-                d="M 180 75 Q 250 118 320 75 Q 250 96 180 75 Z"
-                fill={colorHex}
-                stroke="#1a1a1a"
-                strokeWidth="1.4"
-              />
-              <path d="M 180 75 Q 250 118 320 75" fill="none" stroke="#000000" strokeOpacity="0.3" strokeWidth="1.8" />
-              {/* Atelier Red Tag in collar */}
-              <rect x="244" y="70" width="12" height="7" rx="1" fill="#E11D2E" opacity="0.9" />
-            </g>
-          ) : (
-            <g id="normal-back-collar">
-              <path
-                d="M 180 75 Q 250 86 320 75 Q 250 78 180 75 Z"
-                fill={colorHex}
-                stroke="#1a1a1a"
-                strokeWidth="1.4"
-              />
-              <path d="M 180 75 Q 250 86 320 75" fill="none" stroke="#000000" strokeOpacity="0.35" strokeWidth="2" />
-            </g>
-          )}
-        </g>
-      )}
-
-      {/* ============================================================ */}
-      {/* 2. OVERSIZED PLAIN T-SHIRT (Boxy Heavyweight Streetwear Cut) */}
-      {/* ============================================================ */}
-      {styleId === "oversized" && (
-        <g id="oversized-tshirt">
-          {/* Subtle Studio Drop Shadow */}
-          <path
-            d="M 175 75 L 90 120 L 55 240 L 115 258 L 140 215 L 138 440 Q 250 448 362 440 L 360 215 L 385 258 L 445 240 L 410 120 L 325 75 Z"
-            fill="#000000"
-            opacity="0.12"
-            transform="translate(0, 5)"
-          />
-
+          {/* Front Specific Crew Collar & Placket Shading */}
           {side === "front" && (
-            <path
-              d="M 175 75 Q 250 56 325 75 Q 250 92 175 75 Z"
-              fill="#141414"
-              opacity="0.75"
-            />
-          )}
-
-          {/* Broad, Boxy Dropped Silhouette */}
-          <path
-            d="
-              M 175 75
-              L 90 120
-              L 55 240
-              L 115 258
-              L 140 215
-              L 138 440
-              Q 250 448 362 440
-              L 360 215
-              L 385 258
-              L 445 240
-              L 410 120
-              L 325 75
-              Z
-            "
-            fill={colorHex}
-            stroke="#1a1a1a"
-            strokeWidth="1.4"
-            strokeLinejoin="round"
-          />
-
-          <path
-            d="M 175 75 L 90 120 L 55 240 L 115 258 L 140 215 L 138 440 Q 250 448 362 440 L 360 215 L 385 258 L 445 240 L 410 120 L 325 75 Z"
-            fill={`url(#studio-light-${styleId})`}
-          />
-          <path
-            d="M 175 75 L 90 120 L 55 240 L 115 258 L 140 215 L 138 440 Q 250 448 362 440 L 360 215 L 385 258 L 445 240 L 410 120 L 325 75 Z"
-            fill={`url(#vertical-shade-${styleId})`}
-          />
-
-          {/* Dropped Shoulder Seam */}
-          <path d="M 90 120 C 110 150, 128 180, 140 215" fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth="1.4" strokeDasharray="3,1.5" />
-          <path d="M 410 120 C 390 150, 372 180, 360 215" fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth="1.4" strokeDasharray="3,1.5" />
-
-          {/* Wide Elbow Sleeve Hem Stitch */}
-          <path d="M 60 236 L 110 252" fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth="1.2" strokeDasharray="3,1.5" />
-          <path d="M 440 236 L 390 252" fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth="1.2" strokeDasharray="3,1.5" />
-
-          {/* Bottom Hem Stitch */}
-          <path d="M 138 430 Q 250 438 362 430" fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth="1.2" strokeDasharray="4,2" />
-
-          {/* Collar */}
-          {side === "front" ? (
-            <g id="oversized-front-collar">
+            <g id="tshirt-front-collar">
               <path
-                d="M 175 75 Q 250 116 325 75 Q 250 95 175 75 Z"
+                d="M 180 75 Q 250 128 320 75 Q 250 114 180 75 Z"
                 fill={colorHex}
                 stroke="#1a1a1a"
                 strokeWidth="1.4"
               />
-              <path d="M 175 75 Q 250 116 325 75" fill="none" stroke="#000000" strokeOpacity="0.3" strokeWidth="1.8" />
-              <rect x="244" y="70" width="12" height="7" rx="1" fill="#E11D2E" opacity="0.9" />
-            </g>
-          ) : (
-            <g id="oversized-back-collar">
               <path
-                d="M 175 75 Q 250 86 325 75 Q 250 78 175 75 Z"
-                fill={colorHex}
+                d="M 182 78 Q 250 124 318 78"
                 stroke="#1a1a1a"
-                strokeWidth="1.4"
+                strokeWidth="0.8"
+                strokeDasharray="2,2"
+                fill="none"
               />
-              <path d="M 175 75 Q 250 86 325 75" fill="none" stroke="#000000" strokeOpacity="0.35" strokeWidth="2" />
-            </g>
-          )}
-        </g>
-      )}
-
-      {/* ============================================================ */}
-      {/* 3. DOWN-SHOULDER / DROP-SHOULDER T-SHIRT                    */}
-      {/* ============================================================ */}
-      {styleId === "drop-shoulder" && (
-        <g id="drop-shoulder-tshirt">
-          {/* Studio Shadow */}
-          <path
-            d="M 175 75 L 85 130 L 60 230 L 115 250 L 145 200 L 145 435 Q 250 444 355 435 L 355 200 L 385 250 L 440 230 L 415 130 L 325 75 Z"
-            fill="#000000"
-            opacity="0.12"
-            transform="translate(0, 5)"
-          />
-
-          {side === "front" && (
-            <path
-              d="M 175 75 Q 250 56 325 75 Q 250 92 175 75 Z"
-              fill="#141414"
-              opacity="0.75"
-            />
-          )}
-
-          {/* Low Drop-Shoulder Contour */}
-          <path
-            d="
-              M 175 75
-              L 85 130
-              L 60 230
-              L 115 250
-              L 145 200
-              L 145 435
-              Q 250 444 355 435
-              L 355 200
-              L 385 250
-              L 440 230
-              L 415 130
-              L 325 75
-              Z
-            "
-            fill={colorHex}
-            stroke="#1a1a1a"
-            strokeWidth="1.4"
-            strokeLinejoin="round"
-          />
-
-          <path
-            d="M 175 75 L 85 130 L 60 230 L 115 250 L 145 200 L 145 435 Q 250 444 355 435 L 355 200 L 385 250 L 440 230 L 415 130 L 325 75 Z"
-            fill={`url(#studio-light-${styleId})`}
-          />
-          <path
-            d="M 175 75 L 85 130 L 60 230 L 115 250 L 145 200 L 145 435 Q 250 444 355 435 L 355 200 L 385 250 L 440 230 L 415 130 L 325 75 Z"
-            fill={`url(#vertical-shade-${styleId})`}
-          />
-
-          {/* Prominent Low Drop-Shoulder Topstitch Line */}
-          <path d="M 85 130 L 145 200" fill="none" stroke="#000000" strokeOpacity="0.35" strokeWidth="1.6" strokeDasharray="4,2" />
-          <path d="M 415 130 L 355 200" fill="none" stroke="#000000" strokeOpacity="0.35" strokeWidth="1.6" strokeDasharray="4,2" />
-
-          {/* Sleeve Hem Stitch */}
-          <path d="M 65 226 L 110 244" fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth="1.2" strokeDasharray="3,1.5" />
-          <path d="M 435 226 L 390 244" fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth="1.2" strokeDasharray="3,1.5" />
-
-          {/* Bottom Hem Stitch */}
-          <path d="M 145 427 Q 250 436 355 427" fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth="1.2" strokeDasharray="4,2" />
-
-          {/* Collar */}
-          {side === "front" ? (
-            <g id="drop-front-collar">
-              <path
-                d="M 175 75 Q 250 118 325 75 Q 250 96 175 75 Z"
-                fill={colorHex}
-                stroke="#1a1a1a"
-                strokeWidth="1.4"
-              />
-              <path d="M 175 75 Q 250 118 325 75" fill="none" stroke="#000000" strokeOpacity="0.3" strokeWidth="1.8" />
-              <rect x="244" y="70" width="12" height="7" rx="1" fill="#E11D2E" opacity="0.9" />
-            </g>
-          ) : (
-            <g id="drop-back-collar">
-              <path
-                d="M 175 75 Q 250 86 325 75 Q 250 78 175 75 Z"
-                fill={colorHex}
-                stroke="#1a1a1a"
-                strokeWidth="1.4"
-              />
-              <path d="M 175 75 Q 250 86 325 75" fill="none" stroke="#000000" strokeOpacity="0.35" strokeWidth="2" />
-            </g>
-          )}
-        </g>
-      )}
-
-      {/* ============================================================ */}
-      {/* 4. HALF-END / CROP-TOP T-SHIRT (Clean Shortened Waistline)   */}
-      {/* ============================================================ */}
-      {styleId === "crop-top" && (
-        <g id="crop-top-tshirt">
-          {/* Shadow */}
-          <path
-            d="M 180 75 L 105 110 L 70 195 L 120 220 L 152 180 L 155 345 Q 250 354 345 345 L 348 180 L 380 220 L 430 195 L 395 110 L 320 75 Z"
-            fill="#000000"
-            opacity="0.12"
-            transform="translate(0, 5)"
-          />
-
-          {side === "front" && (
-            <path
-              d="M 180 75 Q 250 58 320 75 Q 250 92 180 75 Z"
-              fill="#141414"
-              opacity="0.75"
-            />
-          )}
-
-          {/* Cropped Torso Cut */}
-          <path
-            d="
-              M 180 75
-              L 105 110
-              L 70 195
-              L 120 220
-              L 152 180
-              L 155 345
-              Q 250 354 345 345
-              L 348 180
-              L 380 220
-              L 430 195
-              L 395 110
-              L 320 75
-              Z
-            "
-            fill={colorHex}
-            stroke="#1a1a1a"
-            strokeWidth="1.4"
-            strokeLinejoin="round"
-          />
-
-          <path
-            d="M 180 75 L 105 110 L 70 195 L 120 220 L 152 180 L 155 345 Q 250 354 345 345 L 348 180 L 380 220 L 430 195 L 395 110 L 320 75 Z"
-            fill={`url(#studio-light-${styleId})`}
-          />
-
-          {/* Armhole Seams */}
-          <path d="M 105 110 C 122 135, 140 155, 152 180" fill="none" stroke="#000000" strokeOpacity="0.22" strokeWidth="1.2" strokeDasharray="3,1.5" />
-          <path d="M 395 110 C 378 135, 360 155, 348 180" fill="none" stroke="#000000" strokeOpacity="0.22" strokeWidth="1.2" strokeDasharray="3,1.5" />
-
-          {/* Bottom Crop Hem Stitch */}
-          <path d="M 155 338 Q 250 346 345 338" fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth="1.2" strokeDasharray="4,2" />
-
-          {/* Collar */}
-          {side === "front" ? (
-            <g id="crop-front-collar">
-              <path
-                d="M 180 75 Q 250 118 320 75 Q 250 96 180 75 Z"
-                fill={colorHex}
-                stroke="#1a1a1a"
-                strokeWidth="1.4"
-              />
-              <path d="M 180 75 Q 250 118 320 75" fill="none" stroke="#000000" strokeOpacity="0.3" strokeWidth="1.8" />
-              <rect x="244" y="70" width="12" height="7" rx="1" fill="#E11D2E" opacity="0.9" />
-            </g>
-          ) : (
-            <g id="crop-back-collar">
-              <path
-                d="M 180 75 Q 250 86 320 75 Q 250 78 180 75 Z"
-                fill={colorHex}
-                stroke="#1a1a1a"
-                strokeWidth="1.4"
-              />
-              <path d="M 180 75 Q 250 86 320 75" fill="none" stroke="#000000" strokeOpacity="0.35" strokeWidth="2" />
-            </g>
-          )}
-        </g>
-      )}
-
-      {/* ============================================================ */}
-      {/* 5. FULL-LENGTH / FULL-SLEEVE T-SHIRT (Clean Tapered Sleeves) */}
-      {/* ============================================================ */}
-      {styleId === "full-sleeve" && (
-        <g id="full-sleeve-tshirt">
-          {/* Studio Shadow */}
-          <path
-            d="M 180 75 L 105 110 L 68 415 L 102 422 L 152 180 L 152 435 Q 250 444 348 435 L 348 180 L 398 422 L 432 415 L 395 110 L 320 75 Z"
-            fill="#000000"
-            opacity="0.12"
-            transform="translate(0, 5)"
-          />
-
-          {side === "front" && (
-            <path
-              d="M 180 75 Q 250 58 320 75 Q 250 92 180 75 Z"
-              fill="#141414"
-              opacity="0.75"
-            />
-          )}
-
-          {/* Long Tapered Sleeves Silhouette */}
-          <path
-            d="
-              M 180 75
-              L 105 110
-              L 68 415
-              L 102 422
-              L 152 180
-              L 152 435
-              Q 250 444 348 435
-              L 348 180
-              L 398 422
-              L 432 415
-              L 395 110
-              L 320 75
-              Z
-            "
-            fill={colorHex}
-            stroke="#1a1a1a"
-            strokeWidth="1.4"
-            strokeLinejoin="round"
-          />
-
-          <path
-            d="M 180 75 L 105 110 L 68 415 L 102 422 L 152 180 L 152 435 Q 250 444 348 435 L 348 180 L 398 422 L 432 415 L 395 110 L 320 75 Z"
-            fill={`url(#studio-light-${styleId})`}
-          />
-          <path
-            d="M 180 75 L 105 110 L 68 415 L 102 422 L 152 180 L 152 435 Q 250 444 348 435 L 348 180 L 398 422 L 432 415 L 395 110 L 320 75 Z"
-            fill={`url(#vertical-shade-${styleId})`}
-          />
-
-          {/* Ribbed Wrist Cuffs */}
-          <path d="M 72 402 L 100 408" fill="none" stroke="#000000" strokeOpacity="0.3" strokeWidth="1.2" strokeDasharray="3,1.5" />
-          <path d="M 428 402 L 400 408" fill="none" stroke="#000000" strokeOpacity="0.3" strokeWidth="1.2" strokeDasharray="3,1.5" />
-
-          {/* Bottom Hem Stitch Line */}
-          <path d="M 152 427 Q 250 436 348 427" fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth="1.2" strokeDasharray="4,2" />
-
-          {/* Collar */}
-          {side === "front" ? (
-            <g id="full-front-collar">
-              <path
-                d="M 180 75 Q 250 118 320 75 Q 250 96 180 75 Z"
-                fill={colorHex}
-                stroke="#1a1a1a"
-                strokeWidth="1.4"
-              />
-              <path d="M 180 75 Q 250 118 320 75" fill="none" stroke="#000000" strokeOpacity="0.3" strokeWidth="1.8" />
-              <rect x="244" y="70" width="12" height="7" rx="1" fill="#E11D2E" opacity="0.9" />
-            </g>
-          ) : (
-            <g id="full-back-collar">
-              <path
-                d="M 180 75 Q 250 86 320 75 Q 250 78 180 75 Z"
-                fill={colorHex}
-                stroke="#1a1a1a"
-                strokeWidth="1.4"
-              />
-              <path d="M 180 75 Q 250 86 320 75" fill="none" stroke="#000000" strokeOpacity="0.35" strokeWidth="2" />
-            </g>
-          )}
-        </g>
-      )}
-
-      {/* ============================================================ */}
-      {/* 6. PREMIUM STREETWEAR HOODIE (Clean Pullover Hoodie)         */}
-      {/* ============================================================ */}
-      {styleId === "hoodie" && (
-        <g id="hoodie-garment">
-          {/* Studio Shadow */}
-          <path
-            d="M 170 85 L 105 118 L 65 415 L 100 422 L 145 190 L 142 435 Q 250 444 358 435 L 355 190 L 400 422 L 435 415 L 395 118 L 330 85 Z"
-            fill="#000000"
-            opacity="0.12"
-            transform="translate(0, 5)"
-          />
-
-          {/* Hoodie Body & Arms */}
-          <path
-            d="
-              M 170 85
-              L 105 118
-              L 65 415
-              L 100 422
-              L 145 190
-              L 142 435
-              Q 250 444 358 435
-              L 355 190
-              L 400 422
-              L 435 415
-              L 395 118
-              L 330 85
-              Z
-            "
-            fill={colorHex}
-            stroke="#1a1a1a"
-            strokeWidth="1.4"
-            strokeLinejoin="round"
-          />
-
-          <path
-            d="M 170 85 L 105 118 L 65 415 L 100 422 L 145 190 L 142 435 Q 250 444 358 435 L 355 190 L 400 422 L 435 415 L 395 118 L 330 85 Z"
-            fill={`url(#studio-light-${styleId})`}
-          />
-          <path
-            d="M 170 85 L 105 118 L 65 415 L 100 422 L 145 190 L 142 435 Q 250 444 358 435 L 355 190 L 400 422 L 435 415 L 395 118 L 330 85 Z"
-            fill={`url(#vertical-shade-${styleId})`}
-          />
-
-          {/* Ribbed Bottom Band */}
-          <path d="M 142 408 Q 250 416 358 408" fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth="1.4" />
-
-          {/* FRONT-ONLY: Kangaroo Pocket, Hood Arcs & Drawstrings */}
-          {side === "front" && (
-            <g id="hoodie-front-details">
-              {/* Kangaroo Pocket */}
-              <path
-                d="M 195 325 L 305 325 L 332 408 L 168 408 Z"
-                fill={colorHex}
-                stroke="#1a1a1a"
-                strokeWidth="1.4"
-                strokeLinejoin="round"
-              />
-              <path d="M 195 325 L 305 325" fill="none" stroke="#000000" strokeOpacity="0.3" strokeWidth="1.2" strokeDasharray="3,1.5" />
-              <path d="M 168 408 L 195 325" fill="none" stroke="#000000" strokeOpacity="0.3" strokeWidth="1.2" strokeDasharray="3,1.5" />
-              <path d="M 332 408 L 305 325" fill="none" stroke="#000000" strokeOpacity="0.3" strokeWidth="1.2" strokeDasharray="3,1.5" />
-
-              {/* Hood Outer Contour */}
-              <path
-                d="
-                  M 170 85
-                  C 170 42, 210 32, 250 32
-                  C 290 32, 330 42, 330 85
-                  C 310 74, 275 68, 250 68
-                  C 225 68, 190 74, 170 85
-                  Z
-                "
-                fill={colorHex}
-                stroke="#1a1a1a"
-                strokeWidth="1.6"
-              />
-              <path
-                d="M 170 85 C 170 42, 210 32, 250 32 C 290 32, 330 42, 330 85 C 310 74, 275 68, 250 68 C 225 68, 190 74, 170 85 Z"
-                fill="url(#vertical-shade-hoodie)"
-                opacity="0.6"
-              />
-
-              {/* Hood Neck Opening */}
-              <path
-                d="M 198 85 Q 250 115 302 85 Q 250 96 198 85 Z"
-                fill="#141414"
-                opacity="0.8"
-              />
-
-              {/* Drawstring Eyelets */}
-              <circle cx="232" cy="100" r="2.8" fill="#D4D4D4" stroke="#444" strokeWidth="0.8" />
-              <circle cx="268" cy="100" r="2.8" fill="#D4D4D4" stroke="#444" strokeWidth="0.8" />
-
-              {/* Clean Woven Drawstrings with Silver Tips */}
-              <path d="M 232 103 L 230 195" fill="none" stroke="#F0F0F0" strokeWidth="2.5" strokeLinecap="round" />
-              <rect x="228.5" y="195" width="3" height="10" rx="0.8" fill="#C0C0C0" stroke="#666" strokeWidth="0.5" />
-
-              <path d="M 268 103 L 270 195" fill="none" stroke="#F0F0F0" strokeWidth="2.5" strokeLinecap="round" />
-              <rect x="268.5" y="195" width="3" height="10" rx="0.8" fill="#C0C0C0" stroke="#666" strokeWidth="0.5" />
             </g>
           )}
 
-          {/* BACK-ONLY: Hood Fold over Upper Back */}
+          {/* Back Specific Collar */}
           {side === "back" && (
-            <g id="hoodie-back-details">
+            <g id="tshirt-back-collar">
               <path
-                d="
-                  M 170 85
-                  C 170 42, 210 32, 250 32
-                  C 290 32, 330 42, 330 85
-                  C 310 110, 275 125, 250 125
-                  C 225 125, 190 110, 170 85
-                  Z
-                "
+                d="M 180 75 Q 250 62 320 75 Q 250 82 180 75 Z"
                 fill={colorHex}
                 stroke="#1a1a1a"
-                strokeWidth="1.6"
-              />
-              <path
-                d="M 170 85 C 170 42, 210 32, 250 32 C 290 32, 330 42, 330 85 C 310 110, 275 125, 250 125 C 225 125, 190 110, 170 85 Z"
-                fill="url(#vertical-shade-hoodie)"
-                opacity="0.65"
+                strokeWidth="1.4"
               />
             </g>
           )}
+
+          {/* Natural Fabric Wrinkles & Underarm Seams */}
+          <g stroke="#000000" opacity={shadowOpacity} strokeWidth="1.2" strokeLinecap="round" fill="none">
+            <path d="M 152 180 L 120 220" />
+            <path d="M 348 180 L 380 220" />
+            <path d="M 152 185 Q 165 240 156 295" />
+            <path d="M 348 185 Q 335 240 344 295" />
+            <path d="M 160 415 Q 250 425 340 415" />
+          </g>
+
+          {/* Shading Overlays */}
+          <path
+            d="M 180 75 L 105 110 L 70 195 L 120 220 L 152 180 L 152 435 Q 250 444 348 435 L 348 180 L 380 220 L 430 195 L 395 110 L 320 75 Z"
+            fill={`url(#studio-light-${styleId})`}
+            pointerEvents="none"
+          />
         </g>
       )}
 
       {/* ============================================================ */}
-      {/* 7. CUSTOM CERAMIC MUG (3D Specular Cylinder + C-Handle)      */}
+      {/* 2. TRADITIONAL INDIAN KURTA (Mandarin Collar & Long Cut)     */}
       {/* ============================================================ */}
-      {styleId === "mug" && (
-        <g id="ceramic-mug">
-          {/* Surface Contact Shadow */}
-          <ellipse cx="250" cy="405" rx="105" ry="14" fill="#000000" opacity="0.22" />
+      {styleId === "kurta" && (
+        <g id="kurta-garment">
+          {/* Drop Shadow */}
+          <path
+            d="M 185 68 L 115 105 L 85 210 L 132 230 L 156 195 L 156 465 Q 250 472 344 465 L 344 195 L 368 230 L 415 210 L 385 105 L 315 68 Z"
+            fill="#000000"
+            opacity="0.14"
+            transform="translate(0, 6)"
+          />
 
-          {/* Handle (Rendered on Right for Front, on Left for Back) */}
-          {side === "front" ? (
-            <g id="mug-handle-right">
-              <path
-                d="
-                  M 330 155
-                  C 415 155, 420 310, 330 320
-                  C 330 288, 385 278, 380 238
-                  C 375 198, 330 188, 330 155
-                  Z
-                "
-                fill={colorHex}
-                stroke="#1a1a1a"
-                strokeWidth="1.6"
-              />
-              <path
-                d="M 330 155 C 415 155, 420 310, 330 320 C 330 288, 385 278, 380 238 C 375 198, 330 188, 330 155 Z"
-                fill="url(#mug-specular)"
-              />
-            </g>
-          ) : (
-            <g id="mug-handle-left">
-              <path
-                d="
-                  M 170 155
-                  C 85 155, 80 310, 170 320
-                  C 170 288, 115 278, 120 238
-                  C 125 198, 170 188, 170 155
-                  Z
-                "
-                fill={colorHex}
-                stroke="#1a1a1a"
-                strokeWidth="1.6"
-              />
-              <path
-                d="M 170 155 C 85 155, 80 310, 170 320 C 170 288, 115 278, 120 238 C 125 198, 170 188, 170 155 Z"
-                fill="url(#mug-specular)"
-              />
-            </g>
-          )}
-
-          {/* Mug Cylindrical Body */}
+          {/* Main Kurta Body & Full Length Cut */}
           <path
             d="
-              M 165 125
-              L 335 125
-              L 335 365
-              Q 250 388 165 365
+              M 185 68
+              L 115 105
+              L 85 210
+              L 132 230
+              L 156 195
+              L 156 465
+              Q 250 472 344 465
+              L 344 195
+              L 368 230
+              L 415 210
+              L 385 105
+              L 315 68
               Z
             "
             fill={colorHex}
             stroke="#1a1a1a"
-            strokeWidth="1.6"
+            strokeWidth="1.5"
+            strokeLinejoin="round"
           />
 
-          {/* Ceramic Specular Sheen */}
+          {/* Mandarin Band Collar (Front view) */}
+          {side === "front" && (
+            <g id="kurta-mandarin-collar">
+              {/* Standup Collar Band */}
+              <path
+                d="M 185 68 Q 250 56 315 68 L 310 82 Q 250 72 190 82 Z"
+                fill={colorHex}
+                stroke="#1a1a1a"
+                strokeWidth="1.3"
+              />
+              {/* Button Placket strip */}
+              <rect
+                x="240"
+                y="80"
+                width="20"
+                height="115"
+                rx="3"
+                fill={colorHex}
+                stroke="#1a1a1a"
+                strokeWidth="1.2"
+              />
+              {/* 3 Kurta Buttons */}
+              <circle cx="250" cy="98" r="3.2" fill="#D4AF37" stroke="#111" strokeWidth="0.8" />
+              <circle cx="250" cy="132" r="3.2" fill="#D4AF37" stroke="#111" strokeWidth="0.8" />
+              <circle cx="250" cy="166" r="3.2" fill="#D4AF37" stroke="#111" strokeWidth="0.8" />
+            </g>
+          )}
+
+          {/* Back Collar */}
+          {side === "back" && (
+            <path
+              d="M 185 68 Q 250 58 315 68 L 315 78 Q 250 68 185 78 Z"
+              fill={colorHex}
+              stroke="#1a1a1a"
+              strokeWidth="1.3"
+            />
+          )}
+
+          {/* Side Slits on Kurta Bottom */}
+          <g stroke="#1a1a1a" strokeWidth="1.4" opacity="0.6">
+            <line x1="156" y1="360" x2="156" y2="465" />
+            <line x1="344" y1="360" x2="344" y2="465" />
+          </g>
+
+          {/* Kurta Texture & Folds */}
+          <g stroke="#000000" opacity={shadowOpacity} strokeWidth="1.1" strokeLinecap="round" fill="none">
+            <path d="M 156 195 L 132 230" />
+            <path d="M 344 195 L 368 230" />
+            <path d="M 190 280 Q 250 295 310 280" />
+            <path d="M 210 390 Q 250 405 290 390" />
+          </g>
+
+          {/* Lighting Shading */}
           <path
-            d="M 165 125 L 335 125 L 335 365 Q 250 388 165 365 Z"
-            fill="url(#mug-specular)"
+            d="M 185 68 L 115 105 L 85 210 L 132 230 L 156 195 L 156 465 Q 250 472 344 465 L 344 195 L 368 230 L 415 210 L 385 105 L 315 68 Z"
+            fill={`url(#studio-light-${styleId})`}
+            pointerEvents="none"
+          />
+        </g>
+      )}
+
+      {/* ============================================================ */}
+      {/* 3. CEREMONIAL KANDUVA (Traditional Folded & Draped Stole)    */}
+      {/* ============================================================ */}
+      {styleId === "kanduva" && (
+        <g id="kanduva-garment">
+          {/* Drop Shadow */}
+          <rect
+            x="115"
+            y="55"
+            width="270"
+            height="390"
+            rx="16"
+            fill="#000000"
+            opacity="0.14"
+            transform="translate(0, 6)"
           />
 
-          {/* Top Porcelain Rim Ellipse & Dark Cavity */}
-          <ellipse cx="250" cy="125" rx="85" ry="20" fill={colorHex} stroke="#1a1a1a" strokeWidth="1.6" />
-          <ellipse cx="250" cy="125" rx="77" ry="15" fill="#141414" opacity="0.85" />
-          <ellipse cx="250" cy="126" rx="72" ry="11" fill="#0a0a0a" opacity="0.95" />
+          {/* Main Kanduva Body Fabric */}
+          <rect
+            x="115"
+            y="55"
+            width="270"
+            height="390"
+            rx="14"
+            fill={colorHex}
+            stroke="#1a1a1a"
+            strokeWidth="1.5"
+          />
 
-          {/* Glossy Ceramic Highlight Streak */}
-          <rect x="200" y="132" width="14" height="235" rx="7" fill="#ffffff" opacity="0.32" />
+          {/* Golden Zari Borders on Top and Bottom */}
+          <rect x="115" y="65" width="270" height="22" fill="url(#gold-zari-gradient)" />
+          <rect x="115" y="413" width="270" height="22" fill="url(#gold-zari-gradient)" />
+
+          {/* Decorative Zari Pinstripes */}
+          <line x1="115" y1="92" x2="385" y2="92" stroke="#B45309" strokeWidth="2" />
+          <line x1="115" y1="408" x2="385" y2="408" stroke="#B45309" strokeWidth="2" />
+
+          {/* Side Golden Fringe Lines */}
+          <g stroke="#D97706" strokeWidth="1.5" opacity="0.8">
+            <line x1="125" y1="55" x2="125" y2="445" />
+            <line x1="375" y1="55" x2="375" y2="445" />
+          </g>
+
+          {/* Traditional Pleats & Folds */}
+          <g stroke="#000000" opacity={shadowOpacity} strokeWidth="1.2" fill="none">
+            <path d="M 160 95 L 160 405" />
+            <path d="M 205 95 L 205 405" />
+            <path d="M 250 95 L 250 405" />
+            <path d="M 295 95 L 295 405" />
+            <path d="M 340 95 L 340 405" />
+          </g>
+
+          {/* Lighting Shading */}
+          <rect
+            x="115"
+            y="55"
+            width="270"
+            height="390"
+            rx="14"
+            fill={`url(#studio-light-${styleId})`}
+            pointerEvents="none"
+          />
+        </g>
+      )}
+
+      {/* ============================================================ */}
+      {/* 4. CUSTOM EVENT & CAMPAIGN FLAG (Waving Cloth on Pole)       */}
+      {/* ============================================================ */}
+      {styleId === "flag" && (
+        <g id="flag-garment">
+          {/* Flag Pole / Mast on the Left */}
+          <rect x="55" y="40" width="14" height="430" rx="4" fill="#3A3A3A" stroke="#111" strokeWidth="1.2" />
+          {/* Pole Brass Finial / Top Knob */}
+          <circle cx="62" cy="38" r="9" fill="url(#gold-zari-gradient)" stroke="#B45309" strokeWidth="1" />
+          {/* Pole Bottom Cap */}
+          <rect x="52" y="465" width="20" height="8" rx="2" fill="#555" />
+
+          {/* Flag Fastener Rings */}
+          <rect x="67" y="65" width="8" height="12" rx="2" fill="#D4AF37" />
+          <rect x="67" y="385" width="8" height="12" rx="2" fill="#D4AF37" />
+
+          {/* Flag Shadow */}
+          <path
+            d="M 75 60 Q 180 45 280 62 Q 380 75 440 60 L 440 380 Q 380 395 280 382 Q 180 365 75 380 Z"
+            fill="#000000"
+            opacity="0.15"
+            transform="translate(0, 6)"
+          />
+
+          {/* Flag Waving Main Fabric Body */}
+          <path
+            d="
+              M 75 60
+              Q 180 45 280 62
+              Q 380 75 440 60
+              L 440 380
+              Q 380 395 280 382
+              Q 180 365 75 380
+              Z
+            "
+            fill={colorHex}
+            stroke="#1a1a1a"
+            strokeWidth="1.5"
+          />
+
+          {/* Double Stitched Reinforcement Border */}
+          <path
+            d="M 85 70 Q 180 55 280 72 Q 380 85 430 70 L 430 370 Q 380 385 280 372 Q 180 355 85 370 Z"
+            stroke="#1a1a1a"
+            strokeWidth="0.8"
+            strokeDasharray="3,3"
+            fill="none"
+            opacity="0.5"
+          />
+
+          {/* Dynamic 3D Wave Shadow Overlays */}
+          <path
+            d="M 75 60 Q 180 45 280 62 Q 380 75 440 60 L 440 380 Q 380 395 280 382 Q 180 365 75 380 Z"
+            fill="url(#flag-wave)"
+            pointerEvents="none"
+          />
         </g>
       )}
     </svg>

@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   Phone,
-  MessageCircle,
   Mail,
   MapPin,
   Clock,
@@ -19,7 +18,7 @@ import {
   Sparkles,
   Check
 } from "lucide-react";
-import { InstagramIcon, FacebookIcon, YoutubeIcon } from "@/components/SocialIcons";
+import { InstagramIcon, FacebookIcon, YoutubeIcon, WhatsappIcon } from "@/components/SocialIcons";
 import SectionHeading from "@/components/SectionHeading";
 import CTASection from "@/components/CTASection";
 import { siteConfig, getWhatsAppLink, getTelLink, getAssetPath } from "@/data/siteConfig";
@@ -145,7 +144,7 @@ export default function ContactPage() {
           {/* Card 2: WhatsApp Us */}
           <div className="min-w-[240px] sm:min-w-0 bg-white p-5 card-feature border border-[#E7E7E7] flex items-start gap-4 hover:shadow-md transition-shadow snap-start shrink-0">
             <div className="w-11 h-11 rounded-xl bg-emerald-50 text-[#25D366] flex items-center justify-center shrink-0">
-              <MessageCircle className="w-5 h-5" />
+              <WhatsappIcon className="w-6 h-6" />
             </div>
             <div>
               <h4 className="font-poppins font-bold text-xs text-[#0B0B0B]">
